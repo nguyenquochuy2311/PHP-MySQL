@@ -1,6 +1,7 @@
 <?php
 include("includes/database.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +61,7 @@ include("includes/database.php");
                                         ";
                                     }
                                     ?>
+
                                 </select>
                             </div>
                         </div>
@@ -67,7 +69,7 @@ include("includes/database.php");
                         <div class="form-group">
                             <label class="col-md-3 control-label"> Danh mục </label>
                             <div class="col-md-6">
-                                <select name="product_cat" class="form-control">
+                                <select name="cat" class="form-control">
                                     <option> Chọn danh mục </option>
 
                                     <?php
@@ -88,19 +90,7 @@ include("includes/database.php");
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-3 control-label"> Hình ảnh 1 của sản phẩm </label>
-                            <div class="col-md-6">
-                                <input type="file" name="product_img" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"> Hình ảnh 2 của sản phẩm </label>
-                            <div class="col-md-6">
-                                <input type="file" name="product_img" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"> Hình ảnh 3 của sản phẩm </label>
+                            <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
                             <div class="col-md-6">
                                 <input type="file" name="product_img" class="form-control" required>
                             </div>
@@ -126,6 +116,14 @@ include("includes/database.php");
                                 <textarea name="product_desc" class="form-control" cols="19" rows="6"></textarea>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-6">
+                                <input name="submit" value="Thêm sản phẩm" type="submit"
+                                    class="btn btn-primary form-control"></input>
+                            </div>
+                        </div>
                 </div>
                 </form>
             </div>
@@ -135,6 +133,33 @@ include("includes/database.php");
 
     <script src="js/jquery-331.js"></script>
     <script src="js/boostrap-337.js"></script>
+    <script src="js/tinymce/tinymce.min.js"></script>
 </body>
 
 </html>
+
+<?php
+if (isset($_POST['submit'])) {
+    $product_title = $_POST['product_title'];
+    $product_cat = $_POST['product_cat'];
+    $cat = $_POST['cat'];
+    $product_price = $_POST['product_price'];
+    $product_keywords = $_POST['product_keywords'];
+    $product_desc = $_POST['product_desc'];
+
+    $product_img = $_FILES['product_img']['name'];
+
+    $temp_name = $_FILES['product_img']['tmp_name'];
+
+    move_uploaded_file($temp_name, "product_images/$product_img");
+
+    $sql_insert = "insert into products values('$product_cat','$cat','$product_title','$product_img','$product_price','$product_keywords','$product_desc')";
+
+    $run_product = mysqli_query($conn, $sql_insert);
+
+    if ($run_product) {
+        echo "<script>alert('Thêm sản phẩm thành công')</script>";
+        echo "<script>window.open('insert_product.php','_self')</script>";
+    }
+}
+?>

@@ -51,8 +51,7 @@ include("includes/database.php");
             <div class="navbar-header">
                 <a href="index.php" class="navbar-brand home">
                     <img style="width:125px;height:49px;" src="images/logo.jpg" alt="Lixibox Logo" class=hidden-xs>
-                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile"
-                        class="visible-xs">
+                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile" class="visible-xs">
                 </a>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
                     <span class="sr-only">Toggle Navigation</span>
@@ -88,8 +87,7 @@ include("includes/database.php");
                     <span>3 sản phẩm trong giỏ hàng</span>
                 </a>
                 <div class="navbar-collapse collapse right">
-                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse"
-                        data-target="#search">
+                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">
                         <span class="sr-only">Toggle Search</span>
                         <i class="fa fa-search"></i>
                     </button>
@@ -121,6 +119,7 @@ include("includes/database.php");
                     <li data-target="#myCarousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
+
                     <?php
                     $get_slides = "select * from slider LIMIT 0,1";
                     $run_slider = mysqli_query($conn, $get_slides);
@@ -152,6 +151,7 @@ include("includes/database.php");
                     <span class="glyphicon glyphicon-chevron-left"></span>
                     <span class="sr-only">Truoc</span>
                 </a>
+
                 <a href="#myCarousel" class="right carousel-control" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Sau</span>
