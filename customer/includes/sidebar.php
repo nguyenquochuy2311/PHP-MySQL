@@ -1,11 +1,11 @@
 <div class="panel panel-default sidebar-menu">
     <div class="panel-heading">
         <center>
-            <img style="width:210px;height:270px;" src="customer_images/customer.jpg" alt="logo">
+            <img style="width:210px;height:270px;" src="customer_images/customer.jpg" alt="Customer Image">
         </center>
         <br />
         <h3 align="center" class="panel-title">
-            Họ và tên: <bold>Nguyễn Quốc Huy</bold>
+            <strong>Nguyễn Quốc Huy</strong>
         </h3>
     </div>
 
@@ -57,7 +57,7 @@
             </li>
 
             <li class="">
-                <a class="logout php">
+                <a class="logout. php">
                     <i class="fa fa-sign-out"></i> Đăng xuất
                 </a>
             </li>

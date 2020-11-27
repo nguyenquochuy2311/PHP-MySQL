@@ -11,24 +11,26 @@
             <div class="col-sm-6 col-md-3">
                 <h4>Danh mục sản phẩm</h4>
                 <ul>
-                    <li>
-                        <a href="#">Beauty Box</a>
-                    </li>
-                    <li>
-                        <a href="#">Trang điểm</a>
-                    </li>
-                    <li>
-                        <a href="#">Tóc</a>
-                    </li>
-                    <li>
-                        <a href="#">Dưỡng da</a>
-                    </li>
-                    <li>
-                        <a href="#">Cơ thể</a>
-                    </li>
-                    <li>
-                        <a href="#">Cọ & Phụ kiện</a>
-                    </li>
+                    <?php
+
+                    $get_p_cats = "select * from product_categories";
+                    $run_p_cats = mysqli_query($conn, $get_p_cats);
+
+                    while ($row_p_cats = mysqli_fetch_array($run_p_cats)) {
+                        $p_cat_id = $row_p_cats['p_cat_id'];
+                        $p_cat_title = $row_p_cats['p_cat_title'];
+                        echo "
+                        
+                        <li>
+                            <a href='cuahang.php?p_cat=$p_cat_id'>
+                                $p_cat_title
+                            </a>
+                        </li>    
+
+                        ";
+                    }
+
+                    ?>
                 </ul>
                 <hr class="hidden-md hidden-lg">
             </div>

@@ -1,3 +1,10 @@
+<?php
+
+include("database.php");
+include("functions/functions.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,13 +29,13 @@
             <div class="col-md-6">
                 <ul class="menu">
                     <li>
-                        <a href="../khach_dangky.php">Đăng ký</a>
+                        <a href="khach_dangky.php">Đăng ký</a>
                     </li>
                     <li>
-                        <a href="my_account.php">Tài khoản của tôi</a>
+                        <a href="customer/my_account.php">Tài khoản của tôi</a>
                     </li>
                     <li>
-                        <a href="../giohang.php">Giỏ hàng</a>
+                        <a href="giohang.php">Giỏ hàng</a>
                     </li>
                     <li>
                         <a href="#">Đăng nhập</a>
@@ -43,7 +50,7 @@
     <div id="navbar" class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <a href="../index.php" class="navbar-brand home">
+                <a href="index.php" class="navbar-brand home">
                     <img style="width:125px;height:49px;" src="images/logo.jpg" alt="Lixibox Logo" class=hidden-xs>
                     <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile"
                         class="visible-xs">
@@ -60,20 +67,20 @@
             <div class="navbar-collapse collapse" id="navigation">
                 <div class="padding-nav">
                     <ul class="nav navbar-nav left">
-                        <li>
-                            <a href="../index.php">Trang chủ</a>
+                        <li class="<?php if ($active == 'Trang chủ') echo "active"; ?>">
+                            <a href="index.php">Trang chủ</a>
                         </li>
-                        <li>
-                            <a href="../cuahang.php">Cửa hàng</a>
+                        <li class="<?php if ($active == 'Cửa hàng') echo "active"; ?>">
+                            <a href="cuahang.php">Cửa hàng</a>
                         </li>
-                        <li class="active">
-                            <a href="my_account.php">Tài khoản của tôi</a>
+                        <li class="<?php if ($active == 'Tài khoản của tôi') echo "active"; ?>">
+                            <a href="customer/my_account.php">Tài khoản của tôi</a>
                         </li>
-                        <li>
-                            <a href="../giohang.php">Giỏ hàng</a>
+                        <li class="<?php if ($active == 'Giỏ hàng') echo "active"; ?>">
+                            <a href="giohang.php">Giỏ hàng</a>
                         </li>
-                        <li>
-                            <a href="../lienhe.php">Liên hệ chúng tôi</a>
+                        <li class="<?php if ($active == 'Liên hệ chúng tôi') echo "active"; ?>">
+                            <a href="lienhe.php">Liên hệ chúng tôi</a>
                         </li>
                     </ul>
                 </div>
@@ -105,81 +112,31 @@
     </div>
     <!--Ket thuc Header-->
 
-    <!--Bat dau content cua san pham-->
-    <div id="content">
-        <div class="container">
-            <div class="col-md-12">
-                <ul class="breadcrumb">
-                    <!--Thu tu trang-->
-                    <li>
-                        <a href="index.php">Trang chủ</a>
-                    </li>
-                    <li>
-                        Tài khoản của tôi
-                    </li>
-                </ul>
-            </div>
+    <div class="col-md-4 col-md-6 center-responsive'">
+        <div class="product">
+            <a href="chitiet.php?pro_id=$pro_id">
+                <img class="img-responsive" src="admin_area/product_images/$pro_img">
 
-            <div class="col-md-3">
-                <?php
-                include("includes/sidebar.php");
-                ?>
-            </div>
+            </a>
 
-            <div class="col-md-9">
-                <div class="box">
-                    <h1 align="center"> Xác nhận thanh toán </h1>
-                    <form action="confirm.php" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label> Mã hoá đơn </label>
-                            <input type="text" class="form-control" name="invoice_no" required>
-                        </div>
+            <div class="text">
+                <h3>
+                    <a href="chitiet.php?pro_id=$pro_id"> $pro_title </a>
+                </h3>
 
-                        <div class="form-group">
-                            <label> Số tiền gửi</label>
-                            <input type="text" class="form-control" name="amount_sent" required>
-                        </div>
+                <p class="price">
+                    $pro_price đ
+                </p>
 
-                        <div class="form-group">
-                            <label> Chọn hình thức thanh toán</label>
-                            <select name="payment_mode" class="form-control">
-                                <option> Chọn hình thức thanh toán</option>
-                                <option> 1</option>
-                                <option> 2</option>
-                                <option> 3</option>
-                                <option> 4</option>
-                            </select>
-                        </div>
+                <p class="button">
+                    <a class="btn btn-default" href="chitiet.php?pro_id=$pro_id">
+                        Chi tiết
+                    </a>
 
-                        <div class="form-group">
-                            <label> 1</label>
-                            <input type="text" class="form-control" name="ref_id">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Ngày thanh toán</label>
-                            <input type="text" class="form-control" name="date" required>
-                        </div>
-
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-lg">
-                                <i class="fa fa-user-md"></i> Xác nhận thanh toán
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                    <a class="btn btn-primary" href="chitiet.php?pro_id=$pro_id">
+                        <i class="fa fa-shopping-cart"></i> Giỏ hàng
+                    </a>
+                </p>
             </div>
         </div>
     </div>
-    <!--Ket thuc content cua san pham-->
-    <?php
-
-    include("includes/footer.php");
-    ?>
-
-
-    <script src="js/jquery-331.js"></script>
-    <script src="js/boostrap-337.js"></script>
-</body>
-
-</html>

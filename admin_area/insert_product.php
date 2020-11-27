@@ -121,25 +121,30 @@ include("includes/database.php");
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-6">
                                 <input name="submit" value="Thêm sản phẩm" type="submit"
-                                    class="btn btn-primary form-control"></input>
+                                    class="btn btn-primary form-control">
                             </div>
                         </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
-    </div>
     </div>
 
     <script src="js/jquery-331.js"></script>
     <script src="js/boostrap-337.js"></script>
     <script src="js/tinymce/tinymce.min.js"></script>
+    <script>
+    tinymce.init({
+        selector: 'textarea'
+    });
+    </script>
 </body>
 
 </html>
 
 <?php
 if (isset($_POST['submit'])) {
+
     $product_title = $_POST['product_title'];
     $product_cat = $_POST['product_cat'];
     $cat = $_POST['cat'];
@@ -153,13 +158,16 @@ if (isset($_POST['submit'])) {
 
     move_uploaded_file($temp_name, "product_images/$product_img");
 
-    $sql_insert = "insert into products values('$product_cat','$cat','$product_title','$product_img','$product_price','$product_keywords','$product_desc')";
+    $sql_insert = "insert into products (p_cat_id,cat_id,date,product_title,product_img,product_price,product_keywords,product_desc)
+     values ('$product_cat','$cat',NOW(),'$product_title','$product_img','$product_price','$product_keywords','$product_desc')";
 
     $run_product = mysqli_query($conn, $sql_insert);
 
     if ($run_product) {
         echo "<script>alert('Thêm sản phẩm thành công')</script>";
         echo "<script>window.open('insert_product.php','_self')</script>";
+    } else {
+        echo "<script>alert('Lỗi')</script>";
     }
 }
 ?>

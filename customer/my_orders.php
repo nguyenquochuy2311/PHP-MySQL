@@ -3,7 +3,7 @@
     <p class="text-muted">
         Nếu có bất kỳ câu hỏi gì, vui lòng liên hệ đến mục <a href="../lienhe.php">
             <bold>Liên hệ</bold>
-        </a>. Dịch vụ chăm sóc khách hàng làm việc 24/7
+        </a>. Dịch vụ chăm sóc khách hàng làm việc <strong>24/7</strong>
     </p>
 </center>
 

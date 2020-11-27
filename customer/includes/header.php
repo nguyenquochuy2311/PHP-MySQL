@@ -1,3 +1,7 @@
+<?php
+include("database.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,82 +108,3 @@
         </div>
     </div>
     <!--Ket thuc Header-->
-
-    <!--Bat dau content cua san pham-->
-    <div id="content">
-        <div class="container">
-            <div class="col-md-12">
-                <ul class="breadcrumb">
-                    <!--Thu tu trang-->
-                    <li>
-                        <a href="index.php">Trang chủ</a>
-                    </li>
-                    <li>
-                        Tài khoản của tôi
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-3">
-                <?php
-                include("includes/sidebar.php");
-                ?>
-            </div>
-
-            <div class="col-md-9">
-                <div class="box">
-                    <h1 align="center"> Xác nhận thanh toán </h1>
-                    <form action="confirm.php" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label> Mã hoá đơn </label>
-                            <input type="text" class="form-control" name="invoice_no" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Số tiền gửi</label>
-                            <input type="text" class="form-control" name="amount_sent" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label> Chọn hình thức thanh toán</label>
-                            <select name="payment_mode" class="form-control">
-                                <option> Chọn hình thức thanh toán</option>
-                                <option> 1</option>
-                                <option> 2</option>
-                                <option> 3</option>
-                                <option> 4</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label> 1</label>
-                            <input type="text" class="form-control" name="ref_id">
-                        </div>
-
-                        <div class="form-group">
-                            <label> Ngày thanh toán</label>
-                            <input type="text" class="form-control" name="date" required>
-                        </div>
-
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-lg">
-                                <i class="fa fa-user-md"></i> Xác nhận thanh toán
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Ket thuc content cua san pham-->
-    <?php
-
-    include("includes/footer.php");
-    ?>
-
-
-    <script src="js/jquery-331.js"></script>
-    <script src="js/boostrap-337.js"></script>
-</body>
-
-</html>
