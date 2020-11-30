@@ -22,7 +22,17 @@ include("includes/header.php");
             <div class="box">
                 <form action="giohang.php" method="post" enctype="multipart/form-data">
                     <h1>Giỏ hàng của bạn</h1>
-                    <p class="text-muted">3 sản phẩm</p>
+
+                    <?php
+
+                    $ip_add = getRealIpUser();
+                    $select_cart = "select * from cart where ip_add='$ip_add'";
+                    $run_cart = mysqli_query($conn, $select_cart);
+                    $count = mysqli_num_rows($run_cart);
+
+                    ?>
+
+                    <p class="text-muted"><?php echo $count; ?> sản phẩm ở hiện tại</p>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -32,91 +42,69 @@ include("includes/header.php");
                                     <th>Đơn giá</th>
                                     <th>Kích cỡ</th>
                                     <th colspan="1">Xoá</th>
-                                    <th colspan="2">Tổng tiền</th>
+                                    <th colspan="2">Giá tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <img class="img-responsive" src="images/kemchongnang1.jpg" alt="Product 1a">
-                                    </td>
-                                    <td>
-                                        <a href="#">Kem chống nắng nhẹ</a>
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        336.000
-                                    </td>
-                                    <td>
-                                        Nhỏ
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="remove[]">
-                                    </td>
-                                    <td>
-                                        672.000
-                                    </td>
-                                </tr>
-                            </tbody>
+                                <?php
 
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img class="img-responsive" src="images/kemchongnang1.jpg" alt="Product 1a">
-                                    </td>
-                                    <td>
-                                        <a href="#">Kem chống nắng nhẹ</a>
-                                    </td>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        336.000
-                                    </td>
-                                    <td>
-                                        Nhỏ
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" name="remove[]">
-                                    </td>
-                                    <td>
-                                        672.000
-                                    </td>
-                                </tr>
-                            </tbody>
+                                $total = 0;
+                                while ($row_cart = mysqli_fetch_array($run_cart)) {
+                                    $pro_id = $row_cart['p_id'];
+                                    $pro_size = $row_cart['size'];
+                                    $pro_qty = $row_cart['qty'];
 
-                            <tbody>
+                                    $get_products = "select * from products where product_id='$pro_id'";
+                                    $run_products = mysqli_query($conn, $get_products);
+
+                                    while ($row_products = mysqli_fetch_array($run_products)) {
+                                        $product_title = $row_products['product_title'];
+                                        $product_img = $row_products['product_img'];
+                                        $only_price = $row_products['product_price'];
+                                        $sub_total = $row_products['product_price'] * $pro_qty;
+
+                                        $total += $sub_total;
+
+                                ?>
+
                                 <tr>
                                     <td>
-                                        <img class="img-responsive" src="images/kemchongnang1.jpg" alt="Product 1a">
+                                        <img class="img-responsive"
+                                            src="admin_area/product_images/<?php echo $product_img; ?>"
+                                            alt="Product 1a">
                                     </td>
                                     <td>
-                                        <a href="#">Kem chống nắng nhẹ</a>
+                                        <a href="chitiet.php?pro_id=<?php echo $pro_id; ?>">
+                                            <?php echo $product_title; ?> </a>
                                     </td>
                                     <td>
-                                        2
+                                        <?php echo $pro_qty; ?>
                                     </td>
                                     <td>
-                                        336.000
+                                        <?php echo $only_price; ?>
                                     </td>
                                     <td>
-                                        Nhỏ
+                                        <?php echo $pro_size; ?>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="remove[]">
+                                        <input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>">
                                     </td>
                                     <td>
-                                        672.000
+                                        <?php echo $sub_total; ?>
                                     </td>
                                 </tr>
+
+                                <?php
+                                    }
+                                }
+
+                                ?>
                             </tbody>
 
                             <tfoot>
                                 <tr>
                                     <th colspan="5">Tổng tiền</th>
-                                    <th colspan="2">1.000.000</th>
+                                    <th colspan="2"><?php echo $total; ?> <u>đ</u></th>
                                 </tr>
                             </tfoot>
 
@@ -143,6 +131,28 @@ include("includes/header.php");
                 </form>
             </div>
 
+            <?php
+
+            function update_cart()
+            {
+                global $conn;
+
+                if (isset($_POST['update'])) {
+                    foreach ($_POST['remove'] as $remove_id) {
+
+                        $delete_product = "delete from cart where p_id='$remove_id'";
+                        $run_delete = mysqli_query($conn, $delete_product);
+
+                        if ($run_delete) {
+                            echo "<script>window.open('giohang.php','_self')</script>";
+                        }
+                    }
+                }
+            }
+
+            echo @$up_cart = update_cart();
+            ?>
+
             <div id="row same-heigh-row">
                 <div class="col-md-3 col-sm-6">
                     <div class="box same-height headline">
@@ -150,41 +160,37 @@ include("includes/header.php");
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 center-responsive">
-                    <div class="product same-height">
-                        <a href="chitiet.php">
-                            <img src="images/xitchongnang1.jpg" alt="Product 4" class="img-responsive">
-                        </a>
-                        <div class="text">
-                            <h3><a href="chitiet.php">Xịt chống nắng</a></h3>
-                            <p class="price">336000</p>
-                        </div>
-                    </div>
-                </div>
+                <?php
 
-                <div class="col-md-3 col-sm-6 center-responsive">
-                    <div class="product same-height">
-                        <a href="chitiet.php">
-                            <img src="images/xitchongnang1.jpg" alt="Product 4" class="img-responsive">
-                        </a>
-                        <div class="text">
-                            <h3><a href="chitiet.php">Xịt chống nắng</a></h3>
-                            <p class="price">336000</p>
-                        </div>
-                    </div>
-                </div>
+                $get_products = "select * from products order by rand() LIMIT 0,3";
+                $run_products = mysqli_query($conn, $get_products);
 
-                <div class="col-md-3 col-sm-6 center-responsive">
-                    <div class="product same-height">
-                        <a href="chitiet.php">
-                            <img src="images/xitchongnang1.jpg" alt="Product 4" class="img-responsive">
-                        </a>
-                        <div class="text">
-                            <h3><a href="chitiet.php">Xịt chống nắng</a></h3>
-                            <p class="price">336000</p>
+                while ($row_products = mysqli_fetch_array($run_products)) {
+                    $pro_id = $row_products['product_id'];
+                    $pro_title = $row_products['product_title'];
+                    $pro_price = $row_products['product_price'];
+                    $pro_img = $row_products['product_img'];
+
+                    echo "
+                        <div class='col-md-3 col-sm-6 center-responsive'>
+                            <div class='product same-height'>
+                                <a href='chitiet.php?pro_id=$pro_id'>
+                                    <img class='img-responsive' src='admin_area/product_images/$pro_img' alt='Product $pro_id'>
+                                </a>
+
+                                <div class='text'>
+                                    <h3>
+                                        <a href='chitiet.php?pro_id=$pro_id'> $pro_title </a>
+                                    </h3>
+                                    <p class='price'><strong>$pro_price đ</strong></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    ";
+                }
+
+                ?>
+
             </div>
         </div>
 
@@ -195,7 +201,7 @@ include("includes/header.php");
                 </div>
 
                 <p class="text-muted">
-                    Đã tính tất cả các phí
+                    Đã tính bao gồm thuế và phí vận chuyển
                 </p>
 
                 <div class="table-responsive">
@@ -203,7 +209,7 @@ include("includes/header.php");
                         <tbody>
                             <tr>
                                 <td> Tổng đơn hàng </td>
-                                <th> 1.000.000 </th>
+                                <th> <?php echo $total; ?> </th>
                             </tr>
                             <tr>
                                 <td> Phí vận chuyển và ship </td>
@@ -215,7 +221,7 @@ include("includes/header.php");
                             </tr>
                             <tr class="total">
                                 <td> Tổng </td>
-                                <th> 1.003.000 </th>
+                                <th> <?php echo $total; ?> </th>
                             </tr>
                         </tbody>
                     </table>

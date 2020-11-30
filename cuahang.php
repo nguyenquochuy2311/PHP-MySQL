@@ -26,6 +26,7 @@ include("includes/header.php");
         </div>
 
         <div class="col-md-9">
+
             <?php
             if (!isset($_GET['p_cat'])) {
                 if (!isset($_GET['cat'])) {
@@ -37,6 +38,7 @@ include("includes/header.php");
             ?>
 
             <div class="row">
+
                 <?php
                 if (!isset($_GET['p_cat'])) {
                     if (!isset($_GET['cat'])) {
@@ -62,11 +64,10 @@ include("includes/header.php");
                             $pro_img = $row_products['product_img'];
 
                             echo "
-                                <div class='col-md-4 col-md-6 center-responsive'>
+                                <div class='col-md-4 col-sm-6 center-responsive'>
                                     <div class='product'>
                                         <a href='chitiet.php?pro_id=$pro_id'>
                                             <img class='img-responsive' src='admin_area/product_images/$pro_img'>
-
                                         </a>
 
                                         <div class='text'>
@@ -75,7 +76,7 @@ include("includes/header.php");
                                             </h3>
 
                                             <p class='price'>
-                                                $pro_price đ
+                                                <strong>$pro_price đ</strong>
                                             </p>
 
                                             <p class='button'>
@@ -92,20 +93,57 @@ include("includes/header.php");
                                 </div>
                                 ";
                         }
-                    }
-                }
                 ?>
             </div>
+
             <center>
                 <ul class="pagination">
                     <?php
-                    if (!isset($_GET['p_cat'])) {
-                        if (!isset($_GET['cat'])) {
-                        }
+
+                        $query = "select * from products";
+
+                        $result = mysqli_query($conn, $query);
+
+                        $total_records = mysqli_num_rows($result);
+
+                        $total_pages = ceil($total_records / $per_page);
+
+                        echo "
+                        <li>
+                            <a href='cuahang.php?page=1'> Trang đầu </a>
+                        </li>
+                    ";
+
+                        for ($i = 1; $i <= $total_pages; $i++) {
+                            echo "
+                        <li>
+                            <a href='cuahang.php?page=$i'> $i </a>
+                        </li>
+                        ";
+                        };
+
+                        echo "
+                        <li>
+                            <a href='cuahang.php?page=$total_pages'> Trang cuối </a>
+                        </li>
+                    ";
                     }
-                    ?>
+                }
+            ?>
                 </ul>
             </center>
+
+            <div class="row">
+                <?php
+                getpcatpro();
+                ?>
+            </div>
+
+            <div class="row">
+                <?php
+                getcatpro();
+                ?>
+            </div>
 
         </div>
     </div>

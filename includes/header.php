@@ -1,8 +1,30 @@
 <?php
 
-include("database.php");
+include("includes/database.php");
 include("functions/functions.php");
 
+?>
+
+<?php
+if (isset($_GET['pro_id'])) {
+    $product_id = $_GET['pro_id'];
+
+    $get_product = "select * from products where product_id='$product_id'";
+    $run_product = mysqli_query($conn, $get_product);
+    $row_product = mysqli_fetch_array($run_product);
+
+    $p_cat_id = $row_product['p_cat_id'];
+    $pro_title = $row_product['product_title'];
+    $pro_price = $row_product['product_price'];
+    $pro_desc = $row_product['product_desc'];
+    $pro_img = $row_product['product_img'];
+
+    $get_p_cat = "select * from product_categories where p_cat_id='$p_cat_id'";
+    $run_p_cat = mysqli_query($conn, $get_p_cat);
+    $row_p_cat = mysqli_fetch_array($run_p_cat);
+
+    $p_cat_title = $row_p_cat['p_cat_title'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +46,7 @@ include("functions/functions.php");
         <div class="container">
             <div class="col-md-6 offer">
                 <a href="#" class="btn btn-success btn-sm">Chào mừng</a>
-                <a href="#">4 sản phẩm trong giỏ hàng | Tổng tiền:</a>
+                <a href="#"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền: <?php total_price(); ?></a>
             </div>
             <div class="col-md-6">
                 <ul class="menu">
@@ -56,7 +78,9 @@ include("functions/functions.php");
                         class="visible-xs">
                 </a>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
-                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="sr-only">Toggle N
+
+                        avigation</span>
                     <i class="fa fa-align-justify"></i>
                 </button>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#search">
@@ -70,23 +94,29 @@ include("functions/functions.php");
                         <li class="<?php if ($active == 'Trang chủ') echo "active"; ?>">
                             <a href="index.php">Trang chủ</a>
                         </li>
+
                         <li class="<?php if ($active == 'Cửa hàng') echo "active"; ?>">
                             <a href="cuahang.php">Cửa hàng</a>
                         </li>
+
                         <li class="<?php if ($active == 'Tài khoản của tôi') echo "active"; ?>">
                             <a href="customer/my_account.php">Tài khoản của tôi</a>
                         </li>
+
                         <li class="<?php if ($active == 'Giỏ hàng') echo "active"; ?>">
                             <a href="giohang.php">Giỏ hàng</a>
                         </li>
+
                         <li class="<?php if ($active == 'Liên hệ chúng tôi') echo "active"; ?>">
                             <a href="lienhe.php">Liên hệ chúng tôi</a>
                         </li>
+
                     </ul>
                 </div>
+
                 <a href="#" class="btn navbar-btn btn-primary right">
                     <i class="fa fa-shopping-cart"></i>
-                    <span>3 sản phẩm trong giỏ hàng</span>
+                    <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>
                 <div class="navbar-collapse collapse right">
                     <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse"
@@ -111,32 +141,3 @@ include("functions/functions.php");
         </div>
     </div>
     <!--Ket thuc Header-->
-
-    <div class="col-md-4 col-md-6 center-responsive'">
-        <div class="product">
-            <a href="chitiet.php?pro_id=$pro_id">
-                <img class="img-responsive" src="admin_area/product_images/$pro_img">
-
-            </a>
-
-            <div class="text">
-                <h3>
-                    <a href="chitiet.php?pro_id=$pro_id"> $pro_title </a>
-                </h3>
-
-                <p class="price">
-                    $pro_price đ
-                </p>
-
-                <p class="button">
-                    <a class="btn btn-default" href="chitiet.php?pro_id=$pro_id">
-                        Chi tiết
-                    </a>
-
-                    <a class="btn btn-primary" href="chitiet.php?pro_id=$pro_id">
-                        <i class="fa fa-shopping-cart"></i> Giỏ hàng
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>

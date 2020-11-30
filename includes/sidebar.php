@@ -5,7 +5,7 @@
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked category-menu">
             <?php
-            getPCat();
+            getPCats();
             ?>
         </ul>
     </div>
@@ -18,7 +18,7 @@
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked category-menu">
             <?php
-            getCat();
+            getCats();
             ?>
         </ul>
     </div>

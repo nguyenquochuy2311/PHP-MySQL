@@ -1,5 +1,6 @@
 <?php
 include("database.php");
+include("functions/functions.php");
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@ include("database.php");
         <div class="container">
             <div class="col-md-6 offer">
                 <a href="#" class="btn btn-success btn-sm">Chào mừng</a>
-                <a href="#">4 sản phẩm trong giỏ hàng | Tổng tiền:</a>
+                <a href="#"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền: <?php total_price(); ?> </a>
             </div>
             <div class="col-md-6">
                 <ul class="menu">
@@ -83,7 +84,7 @@ include("database.php");
                 </div>
                 <a href="#" class="btn navbar-btn btn-primary right">
                     <i class="fa fa-shopping-cart"></i>
-                    <span>3 sản phẩm trong giỏ hàng</span>
+                    <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>
                 <div class="navbar-collapse collapse right">
                     <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse"
