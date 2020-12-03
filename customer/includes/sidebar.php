@@ -1,12 +1,32 @@
 <div class="panel panel-default sidebar-menu">
     <div class="panel-heading">
-        <center>
-            <img style="width:210px;height:270px;" src="customer_images/customer.jpg" alt="Customer Image">
-        </center>
-        <br />
-        <h3 align="center" class="panel-title">
-            <strong>Nguyễn Quốc Huy</strong>
-        </h3>
+        <?php
+
+        $session_email = $_SESSION['customer_email'];
+
+        $select_customer = "select * from customers where customer_email='$session_email'";
+        $run_customer = mysqli_query($conn, $select_customer);
+        $row_customer = mysqli_fetch_array($run_customer);
+
+        $customer_image = $row_customer['customer_image'];
+        $customer_name = $row_customer['customer_name'];
+
+        if (!isset($_SESSION['customer_email'])) {
+        } else {
+            echo "
+
+            <center>
+                <img style='width:210px;height:270px;' src='customer_images/$customer_image' alt='Customer Image'>
+            </center>
+            <br />
+            <h1 style='font-size:20px;' align='center' class='panel-title'>
+                <strong>$customer_name</strong>
+            </h1>
+ 
+            ";
+        }
+        ?>
+
     </div>
 
     <div class="panel-body">
@@ -56,8 +76,8 @@
                 </a>
             </li>
 
-            <li class="">
-                <a class="logout. php">
+            <li>
+                <a class="logout.php">
                     <i class="fa fa-sign-out"></i> Đăng xuất
                 </a>
             </li>

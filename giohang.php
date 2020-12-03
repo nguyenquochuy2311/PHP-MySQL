@@ -123,7 +123,7 @@ include("includes/header.php");
                                 <i class="fa fa-refresh"></i>Cập nhật giỏ hàng
                             </button>
 
-                            <a href="thanhtoan.php" class="btn btn-primary">
+                            <a href="checkout.php" class="btn btn-primary">
                                 Tiến hành thanh toán <i class="fa fa-chevron-right"></i>
                             </a>
                         </div>
@@ -151,6 +151,7 @@ include("includes/header.php");
             }
 
             echo @$up_cart = update_cart();
+
             ?>
 
             <div id="row same-heigh-row">

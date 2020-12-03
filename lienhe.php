@@ -42,7 +42,7 @@ include("includes/header.php");
                         </div>
                         <div class="form-group">
                             <label>Yêu cầu</label>
-                            <select>
+                            <select name="subject" required>
                                 <option>Huỷ đơn hàng</option>
                                 <option>Đổi trả sản phẩm lỗi</option>
                                 <option>Xuất hoá đơn</option>
@@ -65,6 +65,35 @@ include("includes/header.php");
                             </button>
                         </div>
                     </form>
+
+                    <?php
+
+                    if (isset($_POST['submit'])) {
+                        $sender_name = $_POST['name'];
+                        $sender_email = $_POST['email'];
+                        $sender_subject = $_POST['subject'];
+                        $sender_id = $_POST['id'];
+                        $sender_message = $_POST['message'];
+
+                        $receiver_email = "nguyenquochuyhbt@gmail.com";
+                        mail($receiver_email, $sender_name, $sender_subject, $sender_message, $sender_email);
+
+                        //Tu dong gui toi nguoi gui voi noi dung
+
+                        $email = $_POST['email'];
+                        $subject = $_POST['subject'];
+
+                        $wc = "Chào mừng bạn đến với LIXIBOX";
+                        $msg = "Cảm ơn bạn đã gửi tin nhắn cho chúng tôi với nội dung chính " . $subject . ". Chúng tôi sẽ phản hồi tin nhắn của bạn";
+                        $from = "nguyenquochuyhbt@gmail.com";
+
+                        mail($email, $wc, $msg, $from);
+
+                        echo "<h2 align='center'> Tin nhắn của bạn đã được gửi thành công </h2>";
+                    }
+
+                    ?>
+
                 </div>
             </div>
         </div>

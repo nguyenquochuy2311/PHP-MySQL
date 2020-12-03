@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include("includes/database.php");
 include("functions/functions.php");
 
@@ -45,8 +47,21 @@ if (isset($_GET['pro_id'])) {
     <div id="top">
         <div class="container">
             <div class="col-md-6 offer">
-                <a href="#" class="btn btn-success btn-sm">Chào mừng</a>
-                <a href="#"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền: <?php total_price(); ?></a>
+                <a href="#" class="btn btn-success btn-sm">
+
+                    <?php
+
+                    if (!isset($_SESSION['customer_email'])) {
+                        echo "Chào mừng: Quý khách";
+                    } else {
+                        echo "Chào mừng: " . $_SESSION['customer_email'] . "";
+                    }
+
+                    ?>
+
+                </a>
+                <a href="checkout.php"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền:
+                    <?php total_price(); ?></a>
             </div>
             <div class="col-md-6">
                 <ul class="menu">
@@ -54,13 +69,24 @@ if (isset($_GET['pro_id'])) {
                         <a href="khach_dangky.php">Đăng ký</a>
                     </li>
                     <li>
-                        <a href="customer/my_account.php">Tài khoản của tôi</a>
+                        <a href="checkout.php">Tài khoản của tôi</a>
                     </li>
                     <li>
                         <a href="giohang.php">Giỏ hàng</a>
                     </li>
                     <li>
-                        <a href="#">Đăng nhập</a>
+                        <a href="checkout.php">
+
+                            <?php
+
+                            if (!isset($_SESSION['customer_email'])) {
+                                echo "<a href='checkout.php'> Đăng nhập </a>";
+                            } else {
+                                echo "<a href='logout.php'> Đăng xuất </a>";
+                            }
+
+                            ?>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -100,9 +126,18 @@ if (isset($_GET['pro_id'])) {
                         </li>
 
                         <li class="<?php if ($active == 'Tài khoản của tôi') echo "active"; ?>">
-                            <a href="customer/my_account.php">Tài khoản của tôi</a>
-                        </li>
 
+                            <?php
+
+                            if (!isset($_SESSION['customer_email'])) {
+                                echo "<a href='checkout.php'>Tài khoản của tôi</a>";
+                            } else {
+                                echo "<a href='customer/my_account.php?my_orders'>Tài khoản của tôi</a>";
+                            }
+
+                            ?>
+
+                        </li>
                         <li class="<?php if ($active == 'Giỏ hàng') echo "active"; ?>">
                             <a href="giohang.php">Giỏ hàng</a>
                         </li>
@@ -114,7 +149,7 @@ if (isset($_GET['pro_id'])) {
                     </ul>
                 </div>
 
-                <a href="#" class="btn navbar-btn btn-primary right">
+                <a href="giohang.php" class="btn navbar-btn btn-primary right">
                     <i class="fa fa-shopping-cart"></i>
                     <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>

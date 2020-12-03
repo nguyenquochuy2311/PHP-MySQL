@@ -8,6 +8,7 @@ include("includes/header.php");
 <div id="content">
     <div class="container">
         <div class="col-md-12">
+
             <ul class="breadcrumb">
                 <!--Thu tu trang-->
                 <li>
@@ -20,10 +21,13 @@ include("includes/header.php");
         </div>
 
         <div class="col-md-3">
+
             <?php
             include("includes/sidebar.php");
             ?>
+
         </div>
+
         <div class="col-md-9">
             <div class="box">
                 <div class="box-header">
@@ -47,7 +51,7 @@ include("includes/header.php");
                         </div>
                         <div class="form-group">
                             <label>Nhập lại mật khẩu</label>
-                            <input type="password" placeholder="Nhập mật khẩu" class="form-control" name="c_pass_a"
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="form-control" name="c_pass_a"
                                 required>
                         </div>
                         <div class="form-group">
@@ -75,7 +79,7 @@ include("includes/header.php");
                             <input type="file" class="form-control form-height-custom" name="c_image" required>
                         </div>
                         <div class="text-center">
-                            <button type="submit" name="submit" class="btn btn-primary">
+                            <button type="submit" name="register" class="btn btn-primary">
                                 <i class="fa fa-user-md"></i> Đăng ký
                             </button>
                         </div>
@@ -85,15 +89,68 @@ include("includes/header.php");
         </div>
     </div>
 </div>
-
-</div>
 <!--Ket thuc content cua san pham-->
+
 <?php
 
 include("includes/footer.php");
-?>
 
+?>
 
 <script src="js/jquery-331.js"></script>
 <script src="js/boostrap-337.js"></script>
+
+</body>
+
+</html>
+
+
+<?php
+
+if (isset($_POST['register'])) {
+    $c_name = $_POST['c_name'];
+    $c_email = $_POST['c_email'];
+    $c_pass = $_POST['c_pass'];
+    $c_pass_a = $_POST['c_pass_a'];
+    $c_country = $_POST['c_country'];
+    $c_city = $_POST['c_city'];
+    $c_contact = $_POST['c_contact'];
+    $c_address = $_POST['c_address'];
+    $c_image = $_FILES['c_image']['name'];
+    $c_image_tmp = $_FILES['c_image']['tmp_name'];
+    $c_ip = getRealIpUser();
+
+    move_uploaded_file($c_image_tmp, "customer/customer_images/$c_image");
+
+    if ($c_pass != $c_pass_a) {
+        echo "<script>alert('Xác nhận mật khẩu không khớp, vui lòng kiểm tra lại')</script>";
+    } else {
+        $insert_customer = "insert into customers (customer_name,customer_email,customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image,customer_ip) 
+        values ('$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image','$c_ip')";
+
+        $run_customer = mysqli_query($conn, $insert_customer);
+        $sel_cart = "select * from cart where ip_add='$c_ip'";
+        $run_cart = mysqli_query($conn, $sel_cart);
+
+        $check_cart = mysqli_num_rows($run_cart);
+
+        if ($check_cart > 0) {
+
+            //Neu dang ky co san pham trong gio hang
+            $_SESSION['customer_email'] = $c_email;
+            //echo "<script>alert('$c_name $c_email $c_pass $c_country $c_city $c_contact $c_address $c_image $c_ip')</script>";
+            echo "<script>alert('Đăng ký tài khoản thành công (1)')</script>";
+            echo "<script>window.open('checkout.php','_self')</script>";
+        } else {
+
+            //Neu dang ky ma khong co san pham trong gio hang
+            $_SESSION['customer_email'] = $c_email;
+            echo "<script>alert('Đăng ký tài khoản thành công (2)')</script>";
+            echo "<script>window.open('index.php','_self')</script>";
+        }
+    }
+}
+
+?>
+
 </body>

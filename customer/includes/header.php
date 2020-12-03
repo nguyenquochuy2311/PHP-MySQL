@@ -1,6 +1,32 @@
 <?php
-include("database.php");
+
+session_start();
+
+include("includes/database.php");
 include("functions/functions.php");
+
+?>
+
+<?php
+if (isset($_GET['pro_id'])) {
+    $product_id = $_GET['pro_id'];
+
+    $get_product = "select * from products where product_id='$product_id'";
+    $run_product = mysqli_query($conn, $get_product);
+    $row_product = mysqli_fetch_array($run_product);
+
+    $p_cat_id = $row_product['p_cat_id'];
+    $pro_title = $row_product['product_title'];
+    $pro_price = $row_product['product_price'];
+    $pro_desc = $row_product['product_desc'];
+    $pro_img = $row_product['product_img'];
+
+    $get_p_cat = "select * from product_categories where p_cat_id='$p_cat_id'";
+    $run_p_cat = mysqli_query($conn, $get_p_cat);
+    $row_p_cat = mysqli_fetch_array($run_p_cat);
+
+    $p_cat_title = $row_p_cat['p_cat_title'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +47,21 @@ include("functions/functions.php");
     <div id="top">
         <div class="container">
             <div class="col-md-6 offer">
-                <a href="#" class="btn btn-success btn-sm">Chào mừng</a>
-                <a href="#"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền: <?php total_price(); ?> </a>
+                <a href="#" class="btn btn-success btn-sm">
+
+                    <?php
+
+                    if (!isset($_SESSION['customer_email'])) {
+                        echo "Chào mừng: Quý khách";
+                    } else {
+                        echo "Chào mừng: " . $_SESSION['customer_email'] . "";
+                    }
+
+                    ?>
+
+                </a>
+                <a href="checkout.php"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền: <?php total_price(); ?>
+                </a>
             </div>
             <div class="col-md-6">
                 <ul class="menu">
@@ -36,7 +75,18 @@ include("functions/functions.php");
                         <a href="../giohang.php">Giỏ hàng</a>
                     </li>
                     <li>
-                        <a href="#">Đăng nhập</a>
+                        <a href="../checkout.php">
+
+                            <?php
+
+                            if (!isset($_SESSION['customer_email'])) {
+                                echo "<a href='checkout.php'> Đăng nhập </a>";
+                            } else {
+                                echo "<a href='logout.php'> Đăng xuất </a>";
+                            }
+
+                            ?>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -82,7 +132,7 @@ include("functions/functions.php");
                         </li>
                     </ul>
                 </div>
-                <a href="#" class="btn navbar-btn btn-primary right">
+                <a href="../giohang.php" class="btn navbar-btn btn-primary right">
                     <i class="fa fa-shopping-cart"></i>
                     <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>

@@ -14,54 +14,74 @@
         <thead>
             <tr>
                 <th> STT </th>
-                <th> Số tiền hết hạn </th>
+                <th> Số tiền </th>
                 <th> Mã hoá đơn </th>
                 <th> Số lượng </th>
+                <th> Kích cỡ </th>
                 <th> Ngày đặt hàng </th>
-                <th> Thanh toán/Chưa thanh toán</th>
                 <th> Tình trạng </th>
-                <th></th>
             </tr>
         </thead>
+
         <tbody>
-            <tr>
-                <th> 1 </th>
 
-                <td> 1.000.000 </td>
-                <td> 18181818 </td>
-                <td> 2 </td>
-                <td> 23-11-2020 </td>
-                <td> Chưa thanh toán </td>
+            <?php
+
+            $session_email = $_SESSION['customer_email'];
+
+            $get_customer = "select * from customers where customer_email='$session_email'";
+            $run_customer = mysqli_query($conn, $get_customer);
+            $row_customer = mysqli_fetch_array($run_customer);
+
+            $customer_id = $row_customer['customer_id'];
+
+            $get_orders = "select * from customer_orders where customer_id='$customer_id'";
+            $run_orders = mysqli_query($conn, $get_orders);
+
+            $i = 0;
+
+            while ($row_orders = mysqli_fetch_array($run_orders)) {
+
+                $order_id = $row_orders['order_id'];
+
+                $due_amount = $row_orders['due_amount'];
+
+                $invoice_no = $row_orders['invoice_no'];
+
+                $qty = $row_orders['qty'];
+
+                $size = $row_orders['size'];
+
+                $order_date = substr($row_orders['order_date'], 0, 11);
+
+                $order_status = $row_orders['order_status'];
+
+                $i++;
+
+                if ($order_status == 'Đang chờ xử lý') {
+
+                    $order_status = 'Chưa thanh toán';
+                } else {
+
+                    $order_status = 'Đã thanh toán';
+                }
+            ?>
+
+            <tr>
+                <th> <?php echo $i; ?> </th>
+                <td> <?php echo $due_amount; ?> đ </td>
+                <td> <?php echo $invoice_no; ?> </td>
+                <td> <?php echo $qty; ?> </td>
+                <td> <?php echo $size; ?> </td>
+                <td> <?php echo $order_date; ?> </td>
+                <td> <?php echo $order_status; ?> </td>
                 <td>
-                    <a href="confirm.php" target="_blank" class="btn btn-primary btn-sm"> Thanh toán </a>
+                    <a href="confirm.php?order_id=<?php echo $order_id; ?>" target="_blank"
+                        class="btn btn-primary btn-sm"> Xác nhận </a>
                 </td>
             </tr>
 
-            <tr>
-                <th> 1 </th>
-
-                <td> 1.000.000 </td>
-                <td> 18181818 </td>
-                <td> 2 </td>
-                <td> 23-11-2020 </td>
-                <td> Chưa thanh toán </td>
-                <td>
-                    <a href="confirm.php" target="_blank" class="btn btn-primary btn-sm"> Thanh toán </a>
-                </td>
-            </tr>
-
-            <tr>
-                <th> 1 </th>
-
-                <td> 1.000.000 </td>
-                <td> 18181818 </td>
-                <td> 2 </td>
-                <td> 23-11-2020 </td>
-                <td> Chưa thanh toán </td>
-                <td>
-                    <a href="confirm.php" target="_blank" class="btn btn-primary btn-sm"> Thanh toán </a>
-                </td>
-            </tr>
+            <?php } ?>
         </tbody>
     </table>
 </div>
