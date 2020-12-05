@@ -18,7 +18,7 @@ if (!isset($_SESSION['admin_email'])) {
             <span class="icon-bar"></span>
 
         </button>
-        <a href="index.php?dashboard" class="navbar-brand">Admin Area</a>
+        <a href="index.php?dashboard" class="navbar-brand">Admin</a>
     </div>
 
     <ul class="nav navbar-right top-nav">
@@ -103,7 +103,7 @@ if (!isset($_SESSION['admin_email'])) {
                         <a href="index.php?insert_p_cat"> Thêm danh mục sản phẩm </a>
                     </li>
                     <li>
-                        <a href="index.php?view_p_cats"> Thêm danh mục sản phẩm </a>
+                        <a href="index.php?view_p_cats"> Xem danh mục sản phẩm </a>
                     </li>
                 </ul>
             </li>
