@@ -6,53 +6,53 @@ if (!isset($_SESSION['admin_email'])) {
 
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/bootstrap-337.css">
-        <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
-        <title>Insert Product</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-337.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <title>Insert Product</title>
+</head>
 
-    <body>
-        <div class="row">
-            <div class="col-lg-12">
-                <ol class="breadcrumb">
-                    <li class="active">
-                        <i class="fa fa-dashboard"></i> Bảng điều khiển / Thêm sản phẩm
-                    </li>
-                </ol>
-            </div>
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i> Bảng điều khiển / Thêm sản phẩm
+                </li>
+            </ol>
         </div>
+    </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="fa fa-money fa-fw"></i> Thêm sản phẩm
-                        </h3>
-                    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-money fa-fw"></i> Thêm sản phẩm
+                    </h3>
+                </div>
 
-                    <div class="panel-body">
-                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Tiêu đề sản phẩm </label>
-                                <div class="col-md-6">
-                                    <input type="text" name="product_title" class="form-control" required>
-                                </div>
+                <div class="panel-body">
+                    <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Tiêu đề sản phẩm </label>
+                            <div class="col-md-6">
+                                <input type="text" name="product_title" class="form-control" required>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Danh mục sản phẩm </label>
-                                <div class="col-md-6">
-                                    <select name="product_cat" class="form-control">
-                                        <option> Chọn danh mục sản phẩm</option>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Danh mục sản phẩm </label>
+                            <div class="col-md-6">
+                                <select name="product_cat" class="form-control" required>
+                                    <option disabled selected> Chọn danh mục sản phẩm</option>
 
-                                        <?php
+                                    <?php
                                         $get_p_cats = "select * from product_categories";
                                         $run_p_cats = mysqli_query($conn, $get_p_cats);
 
@@ -66,17 +66,17 @@ if (!isset($_SESSION['admin_email'])) {
                                         }
                                         ?>
 
-                                    </select>
-                                </div>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Danh mục </label>
-                                <div class="col-md-6">
-                                    <select name="cat" class="form-control">
-                                        <option> Chọn danh mục </option>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Giới tính </label>
+                            <div class="col-md-6">
+                                <select name="cat" class="form-control" required>
+                                    <option disabled selected> Chọn danh mục </option>
 
-                                        <?php
+                                    <?php
                                         $get_cat = "select * from categories";
                                         $run_cat = mysqli_query($conn, $get_cat);
 
@@ -89,66 +89,91 @@ if (!isset($_SESSION['admin_email'])) {
                                         ";
                                         }
                                         ?>
-                                    </select>
-                                </div>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
-                                <div class="col-md-6">
-                                    <input type="file" name="product_img" class="form-control" required>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Nhà sản xuất </label>
+                            <div class="col-md-6">
+                                <select name="manu" class="form-control" required>
+                                    <option disabled selected> Chọn nhà sản xuất </option>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Giá sản phẩm </label>
-                                <div class="col-md-6">
-                                    <input type="text" name="product_price" class="form-control" required>
-                                </div>
-                            </div>
+                                    <?php
+                                        $get_manu = "select * from manufacturers";
+                                        $run_manu = mysqli_query($conn, $get_manu);
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Từ khoá về sản phẩm </label>
-                                <div class="col-md-6">
-                                    <input type="text" name="product_keywords" class="form-control" required>
-                                </div>
-                            </div>
+                                        while ($row_manu = mysqli_fetch_array($run_manu)) {
+                                            $manu_id = $row_manu['manufacturer_id'];
+                                            $manu_title = $row_manu['manufacturer_title'];
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"> Mô tả sản phẩm </label>
-                                <div class="col-md-6">
-                                    <textarea name="product_desc" class="form-control" cols="19" rows="6"></textarea>
-                                </div>
+                                            echo "
+                                        <option value='$manu_id'>$manu_title</option>
+                                        ";
+                                        }
+                                        ?>
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-6">
-                                    <input name="submit" value="Thêm sản phẩm" type="submit" class="btn btn-primary form-control">
-                                </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
+                            <div class="col-md-6">
+                                <input type="file" name="product_img" class="form-control" required>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Giá sản phẩm </label>
+                            <div class="col-md-6">
+                                <input type="text" name="product_price" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Từ khoá về sản phẩm </label>
+                            <div class="col-md-6">
+                                <input type="text" name="product_keywords" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Mô tả sản phẩm </label>
+                            <div class="col-md-6">
+                                <textarea name="product_desc" class="form-control" cols="19" rows="6"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"></label>
+                            <div class="col-md-6">
+                                <input name="submit" value="Thêm sản phẩm" type="submit"
+                                    class="btn btn-primary form-control">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="js/tinymce/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                selector: 'textarea'
-            });
-        </script>
-    </body>
+    <script src="js/tinymce/tinymce.min.js"></script>
+    <script>
+    tinymce.init({
+        selector: 'textarea'
+    });
+    </script>
+</body>
 
-    </html>
+</html>
 
-    <?php
+<?php
     if (isset($_POST['submit'])) {
 
         $product_title = $_POST['product_title'];
         $product_cat = $_POST['product_cat'];
         $cat = $_POST['cat'];
+        $manufacturer_id = $_POST['manu'];
         $product_price = $_POST['product_price'];
         $product_keywords = $_POST['product_keywords'];
         $product_desc = $_POST['product_desc'];
@@ -159,8 +184,8 @@ if (!isset($_SESSION['admin_email'])) {
 
         move_uploaded_file($temp_name, "product_images/$product_img");
 
-        $sql_insert = "insert into products (p_cat_id,cat_id,date,product_title,product_img,product_price,product_keywords,product_desc)
-     values ('$product_cat','$cat',NOW(),'$product_title','$product_img','$product_price','$product_keywords','$product_desc')";
+        $sql_insert = "insert into products (p_cat_id,cat_id,manufacturer_id,date,product_title,product_img,product_price,product_keywords,product_desc)
+     values ('$product_cat','$cat','$manufacturer_id',NOW(),'$product_title','$product_img','$product_price','$product_keywords','$product_desc')";
 
         $run_product = mysqli_query($conn, $sql_insert);
 

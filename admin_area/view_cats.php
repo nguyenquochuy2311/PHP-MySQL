@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_email'])) {
 <div class="row">
     <div class="col-lg-12">
         <ol class="breadcrumb">
-            <li>
+            <li class="active">
                 <i class="fa fa-dashboard"></i> Bảng điều khiển / Xem danh mục giới tính
             </li>
         </ol>
@@ -32,7 +32,8 @@ if (!isset($_SESSION['admin_email'])) {
                             <tr>
                                 <th> STT </th>
                                 <th> Chủ đề danh mục giới tính </th>
-                                <th> Mô tả danh mục giới tính </th>
+                                <th> Hình ảnh danh mục giới tính </th>
+                                <th> Kiểm tra danh mục giới tính </th>
                             </tr>
                         </thead>
 
@@ -48,8 +49,8 @@ if (!isset($_SESSION['admin_email'])) {
 
                                     $cat_id = $row_cats['cat_id'];
                                     $cat_title = $row_cats['cat_title'];
-                                    $cat_desc = $row_cats['cat_desc'];
-
+                                    $cat_top = $row_cats['cat_top'];
+                                    $cat_image = $row_cats['cat_image'];
                                     $i++;
 
                                 ?>
@@ -57,15 +58,17 @@ if (!isset($_SESSION['admin_email'])) {
                             <tr>
                                 <td> <?php echo $i; ?> </td>
                                 <td> <?php echo $cat_title; ?> </td>
-                                <td width="300"> <?php echo $cat_desc; ?> </td>
+                                <td> <img src="other_images/<?php echo $cat_image; ?>" width="60" height="60"> </td>
+                                <td> <?php echo $cat_top; ?> </td>
+
                                 <td>
-                                    <a href="index.php?edit_cat= <?php echo $cat_id; ?> ">
-                                        <i class="fa fa-pencil"></i> Edit
+                                    <a href="index.php?delete_cat=<?php echo $cat_id; ?>">
+                                        <i class="fa fa-trash"></i> Xoá
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="index.php?delete_cat= <?php echo $cat_id; ?> ">
-                                        <i class="fa fa-trash"></i> Delete
+                                    <a href="index.php?edit_cat=<?php echo $cat_id; ?>">
+                                        <i class="fa fa-pencil"></i> Sửa
                                     </a>
                                 </td>
                             </tr>

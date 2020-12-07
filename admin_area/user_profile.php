@@ -57,7 +57,7 @@ if (!isset($_SESSION['admin_email'])) {
             </div>
 
             <div class="panel-body">
-                <form action="" class="form-horizontal" method="post">
+                <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="" class="control-label col-md-3"> Tên người dùng </label>
 
@@ -108,12 +108,12 @@ if (!isset($_SESSION['admin_email'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="control-label col-md-3"> Vị trí công việc </label>
+                        <label for="" class="control-label col-md-3"> Hình ảnh người dùng </label>
                         <div class="col-md-6">
                             <input name="admin_image" type="file" class="form-control" required>
 
                             <img src="admin_images/<?php echo $admin_image; ?>" alt="<?php echo $admin_name; ?>"
-                                width="70" height="70">
+                                style="width:360px;height:450px;">
                         </div>
                     </div>
 
@@ -140,19 +140,18 @@ if (!isset($_SESSION['admin_email'])) {
         $user_country = $_POST['admin_country'];
         $user_contact = $_POST['admin_contact'];
         $user_job = $_POST['admin_job'];
-        $user_about = $_POST['admin_about'];
 
         $user_image = $_FILES['admin_image']['name'];
         $temp_admin_image = $_FILES['admin_image']['tmp_name'];
 
         move_uploaded_file($temp_admin_image, "admin_images/$user_image");
 
-        $update_user = "update admins set admin_name='$user_name',admin_email='$user_email',admin_pass='$user_pass',admin_country='$user_country',admin_contact='$user_contact',admin_job='$user_job',admin_about='$user_about',admin_image='$user_image' where admin_id='$user_id'";
+        $update_user = "update admins set admin_name='$user_name',admin_email='$user_email',admin_pass='$user_pass',admin_country='$user_country',admin_contact='$user_contact',admin_job='$user_job',admin_image='$user_image' where admin_id='$user_id'";
 
         $run_user = mysqli_query($conn, $update_user);
 
         if ($run_user) {
-
+            echo "<script>alert('$user_image')</script>";
             echo "<script>alert('Người dùng được cập nhật thành công')</script>";
             echo "<script>window.open('login.php','_self')</script>";
 

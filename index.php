@@ -15,26 +15,31 @@ include("includes/header.php");
             <div class="carousel-inner">
 
                 <?php
-                $get_slides = "select * from slider LIMIT 0,1";
+                $get_slides = "select * from slider order by slider_id desc LIMIT 1";
                 $run_slider = mysqli_query($conn, $get_slides);
                 while ($row_slides = mysqli_fetch_array($run_slider)) {
                     $slide_name = $row_slides['slider_name'];
                     $slide_image = $row_slides['slider_image'];
+                    $slide_url = $row_slides['slide_url'];
                     echo "
                             <div class='item active'>
-                                <img style='width:1100px;height:490px;' src='admin_area/slides_images/$slide_image'>
+                                <a href='$slide_url'>
+                                    <img style='width:1100px;height:490px;' src='admin_area/slides_images/$slide_image'>
+                                </a>                              
                             </div>
                             ";
                 }
 
-                $get_slides = "select * from slider LIMIT 1,2";
+                $get_slides = "select * from slider order by slider_id desc LIMIT 1,2";
                 $run_slider = mysqli_query($conn, $get_slides);
                 while ($row_slides = mysqli_fetch_array($run_slider)) {
                     $slide_name = $row_slides['slider_name'];
                     $slide_image = $row_slides['slider_image'];
                     echo "
                             <div class='item'>
-                                <img style='width:1100px;height:490px;' src='admin_area/slides_images/$slide_image'>
+                                <a href='$slide_url'>
+                                    <img style='width:1100px;height:490px;' src='admin_area/slides_images/$slide_image'>
+                                </a>
                             </div>
                             ";
                 }
@@ -54,6 +59,39 @@ include("includes/header.php");
     </div>
 </div>
 <!--Ket thuc Slide-->
+
+<div class="advantages">
+    <div class="container">
+        <div class="same-height-row">
+
+            <?php
+
+            $get_boxes = "select * from boxes_section";
+            $run_boxes = mysqli_query($conn, $get_boxes);
+
+            while ($run_boxes_section = mysqli_fetch_array($run_boxes)) {
+
+                $box_id = $run_boxes_section['box_id'];
+                $box_title = $run_boxes_section['box_title'];
+                $box_desc = $run_boxes_section['box_desc'];
+
+            ?>
+
+            <div class="col-sm-4">
+                <div class="box same-height">
+                    <div class="icon">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <h3><a href="#"><?php echo $box_title; ?></a></h3>
+                    <p><?php echo $box_desc; ?></p>
+                </div>
+            </div>
+
+            <?php    } ?>
+
+        </div>
+    </div>
+</div>
 
 <!--Bat dau khung Hot deal-->
 <div id="hot">

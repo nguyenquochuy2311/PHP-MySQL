@@ -76,6 +76,23 @@ if (!isset($_SESSION['admin_email'])) {
             </li>
 
             <li>
+                <a href="#" data-toggle="collapse" data-target="#manufacturers">
+                    <i class="fa fa-fw fa-star"></i> Nhà sản xuất
+                    <i class="fa fa-fw fa-caret-down"></i>
+                </a>
+
+                <ul id="manufacturers" class="collapse">
+                    <li>
+                        <a href="index.php?insert_manufacturer"> Thêm nhà sản xuất </a>
+                    </li>
+                    <li>
+                        <a href="index.php?view_manufacturers"> Xem nhà sản xuất </a>
+                    </li>
+                </ul>
+
+            </li>
+
+            <li>
                 <a href="#" data-toggle="collapse" data-target="#products">
                     <i class="fa fa-fw fa-tag"></i> Sản phẩm
                     <i class="fa fa-fw fa-caret-down"></i>
@@ -139,6 +156,22 @@ if (!isset($_SESSION['admin_email'])) {
                     </li>
                 </ul>
 
+            </li>
+
+            <li>
+                <a href="#" data-toggle="collapse" data-target="#boxes">
+                    <i class="fa fa-fw fa-dropbox"></i> Box
+                    <i class="fa fa-fw fa-caret-down"></i>
+                </a>
+
+                <ul id="boxes" class="collapse">
+                    <li>
+                        <a href="index.php?insert_box"> Thêm Box </a>
+                    </li>
+                    <li>
+                        <a href="index.php?view_boxes"> Xem Boxes </a>
+                    </li>
+                </ul>
             </li>
 
             <li>

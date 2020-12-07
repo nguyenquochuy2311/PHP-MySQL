@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_email'])) {
 <div class="row">
     <div class="col-lg-12">
         <ol class="breadcrumb">
-            <li>
+            <li class="active">
                 <i class="fa fa-dashboard"></i> Bảng điều khiển / Thêm danh mục giới tính
         </ol>
     </div>
@@ -26,7 +26,7 @@ if (!isset($_SESSION['admin_email'])) {
             </div>
 
             <div class="panel-body">
-                <form action="" class="form-horizontal" method="post">
+                <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="" class="control-label col-md-3"> Chủ đề danh mục giới tính </label>
 
@@ -36,10 +36,20 @@ if (!isset($_SESSION['admin_email'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="control-label col-md-3"> Mô tả danh mục giới tính </label>
+                        <label for="" class="control-label col-md-3"> Kiểm tra danh mục giới tính </label>
                         <div class="col-md-6">
-                            <textarea type='text' name="cat_desc" id="" cols="30" rows="10"
-                                class="form-control"></textarea>
+                            <input type="radio" value="yes" name="cat_top">
+                            <label>Yes</label>
+
+                            <input type="radio" value="no" name="cat_top">
+                            <label>No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"> Hình ảnh của danh mục giới tính </label>
+                        <div class="col-md-6">
+                            <input type="file" name="cat_img" class="form-control" required>
                         </div>
                     </div>
 
@@ -60,9 +70,14 @@ if (!isset($_SESSION['admin_email'])) {
     if (isset($_POST['submit'])) {
 
         $cat_title = $_POST['cat_title'];
-        $cat_desc = $_POST['cat_desc'];
+        $cat_top = $_POST['cat_top'];
+        $cat_image = $_FILES['cat_img']['name'];
 
-        $insert_cat = "insert into categories (cat_title,cat_desc) values ('$cat_title','$cat_desc')";
+        $temp_name = $_FILES['cat_img']['tmp_name'];
+
+        move_uploaded_file($temp_name, "other_images/$cat_image");
+
+        $insert_cat = "insert into categories (cat_title,cat_top,cat_image) values ('$cat_title','$cat_top','$cat_image')";
 
         $run_cat = mysqli_query($conn, $insert_cat);
 

@@ -18,6 +18,7 @@ if (!isset($_SESSION['admin_email'])) {
         $pro_id = $row_edit['product_id'];
         $pro_cat = $row_edit['p_cat_id'];
         $cat = $row_edit['cat_id'];
+        $manu_id = $row_edit['manufacturer_id'];
         $pro_title = $row_edit['product_title'];
         $pro_img = $row_edit['product_img'];
         $pro_price = $row_edit['product_price'];
@@ -36,6 +37,12 @@ if (!isset($_SESSION['admin_email'])) {
     $row_cat = mysqli_fetch_array($run_cat);
 
     $cat_title = $row_cat['cat_title'];
+
+    $get_manu = "select * from manufacturers where manufacturer_id='$manu_id'";
+    $run_manu = mysqli_query($conn, $get_manu);
+    $row_manu = mysqli_fetch_array($run_manu);
+
+    $manu_title = $row_manu['manufacturer_title'];
 
     ?>
 
@@ -128,6 +135,29 @@ if (!isset($_SESSION['admin_email'])) {
                         </div>
 
                         <div class="form-group">
+                            <label class="col-md-3 control-label"> Nhà sản xuất</label>
+                            <div class="col-md-6">
+                                <select name="manu" class="form-control">
+                                    <option value="<?php echo $manu_id; ?>"> <?php echo $manu_title; ?> </option>
+
+                                    <?php
+                                        $get_manu = "select * from manufacturers";
+                                        $run_manu = mysqli_query($conn, $get_manu);
+
+                                        while ($row_manu = mysqli_fetch_array($run_manu)) {
+                                            $manu_id = $row_manu['manufacturer_id'];
+                                            $manu_title = $row_manu['manufacturer_title'];
+
+                                            echo "
+                                        <option value='$manu_id'>$manu_title</option>
+                                        ";
+                                        }
+                                        ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
 
                             <div class="col-md-6">
@@ -165,7 +195,7 @@ if (!isset($_SESSION['admin_email'])) {
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>
                             <div class="col-md-6">
-                                <input name="update" value="Chỉnh sửa sản phẩm" type="submit"
+                                <input name="update" value="Cập nhật sản phẩm" type="submit"
                                     class="btn btn-primary form-control">
                             </div>
                         </div>
@@ -191,6 +221,7 @@ if (!isset($_SESSION['admin_email'])) {
         $product_title = $_POST['product_title'];
         $product_cat = $_POST['product_cat'];
         $cat = $_POST['cat'];
+        $manu_id = $_POST['manu'];
         $product_price = $_POST['product_price'];
         $product_keywords = $_POST['product_keywords'];
         $product_desc = $_POST['product_desc'];
@@ -201,7 +232,7 @@ if (!isset($_SESSION['admin_email'])) {
 
         move_uploaded_file($temp_name, "product_images/$product_img");
 
-        $update_product = "update products set p_cat_id='$product_cat',cat_id='$cat',date=NOW(),product_title='$product_title',product_img='$product_img'," .
+        $update_product = "update products set p_cat_id='$product_cat',cat_id='$cat',manufacturer_id='$manu_id',date=NOW(),product_title='$product_title',product_img='$product_img'," .
             "product_price='$product_price',product_keywords='$product_keywords',product_desc='$product_desc' where product_id='$pro_id'";
 
         $run_product = mysqli_query($conn, $update_product);

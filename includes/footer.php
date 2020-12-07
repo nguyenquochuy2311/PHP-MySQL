@@ -54,6 +54,14 @@
             <div class="col-sm-6 col-md-3">
                 <h4>Tải ứng dụng LIXIBOX</h4>
                 <h4>Hotline: 0375119131</h4>
+                <label>
+                    <a href="https://play.google.com/store/apps/details?id=com.lixibox&hl=vi">
+                        <img style="background-color:black;" src="images/android-app.jpg">
+                    </a>
+                    <a href="https://apps.apple.com/vn/app/lixibox/id1078181334?l=vi">
+                        <img style="background-color:black;" src="images/ios-app.jpg">
+                    </a>
+                </label>
                 <hr>
                 <p class="social">
                     <a href="https://www.facebook.com/lixiboxvn/" class="fa fa-facebook"></a>

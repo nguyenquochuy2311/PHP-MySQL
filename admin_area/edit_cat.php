@@ -18,7 +18,8 @@ if (!isset($_SESSION['admin_email'])) {
 
         $cat_id = $row_edit['cat_id'];
         $cat_title = $row_edit['cat_title'];
-        $cat_desc = $row_edit['cat_desc'];
+        $cat_top = $row_edit['cat_top'];
+        $cat_image = $row_edit['cat_image'];
     }
 
     ?>
@@ -43,7 +44,7 @@ if (!isset($_SESSION['admin_email'])) {
             </div>
 
             <div class="panel-body">
-                <form method="post" class="form-horizontal">
+                <form method="post" class="form-horizontal" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="col-md-3 control-label"> Tiêu đề danh mục giới tính </label>
                         <div class="col-md-6">
@@ -53,17 +54,43 @@ if (!isset($_SESSION['admin_email'])) {
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label"> Mô tả danh mục giới tính </label>
+                        <label class="col-md-3 control-label"> Kiểm tra danh mục giới tính </label>
                         <div class="col-md-6">
-                            <textarea cols="19" rows="20" type='text' name="cat_desc"
-                                class="form-control"><?php echo $cat_desc; ?></textarea>
+                            <input type="radio" value="yes" name="cat_top" <?php
+
+                                                                                if ($cat_top == 'yes') {
+                                                                                    echo "checked='checked'";
+                                                                                }
+
+                                                                                ?>>
+                            <label>Yes</label>
+
+                            <input type="radio" value="no" name="cat_top" <?php
+
+                                                                                if ($cat_top == 'no') {
+                                                                                    echo "checked='checked'";
+                                                                                }
+
+                                                                                ?>>
+                            <label>No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"> Hình ảnh danh mục giới tính </label>
+                        <div class="col-md-6">
+                            <input type="file" name="cat_image" class="form-control">
+
+                            <br />
+
+                            <img src="other_images/<?php echo $cat_image; ?>" class="img-responsive">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-6">
-                            <input name="update" value="Chỉnh sửa danh mục giới tính" type="submit"
+                            <input name="update" value="Cập nhật danh mục giới tính" type="submit"
                                 class="btn btn-primary form-control">
                         </div>
                     </div>
@@ -78,9 +105,14 @@ if (!isset($_SESSION['admin_email'])) {
     if (isset($_POST['update'])) {
 
         $cat_title = $_POST['cat_title'];
+        $cat_top = $_POST['cat_top'];
+        $cat_image = $_FILES['cat_image']['name'];
 
-        $cat_desc = $_POST['cat_desc'];
-        $update_cat = "update categories set cat_title='$cat_title',cat_desc='$cat_desc' where cat_id='$cat_id'";
+        $temp_name = $_FILES['cat_image']['tmp_name'];
+
+        move_uploaded_file($temp_name, "other_images/$cat_image");
+
+        $update_cat = "update categories set cat_title='$cat_title',cat_top='$cat_top',cat_image='$cat_image' where cat_id='$cat_id'";
         $run_cat = mysqli_query($conn, $update_cat);
 
         if ($run_cat) {

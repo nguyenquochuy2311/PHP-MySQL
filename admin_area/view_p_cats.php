@@ -31,7 +31,8 @@ if (!isset($_SESSION['admin_email'])) {
                             <tr>
                                 <th> STT </th>
                                 <th> Chủ đề danh mục </th>
-                                <th> Mô tả danh mục </th>
+                                <th> Hình ảnh danh mục </th>
+                                <th> Kiểm tra danh mục </th>
                             </tr>
                         </thead>
 
@@ -47,7 +48,8 @@ if (!isset($_SESSION['admin_email'])) {
 
                                     $p_cat_id = $row_p_cats['p_cat_id'];
                                     $p_cat_title = $row_p_cats['p_cat_title'];
-                                    $p_cat_desc = $row_p_cats['p_cat_desc'];
+                                    $p_cat_top = $row_p_cats['p_cat_top'];
+                                    $p_cat_image = $row_p_cats['p_cat_image'];
 
                                     $i++;
 
@@ -56,17 +58,19 @@ if (!isset($_SESSION['admin_email'])) {
                             <tr>
                                 <td> <?php echo $i; ?> </td>
                                 <td> <?php echo $p_cat_title; ?> </td>
-                                <td width="300"> <?php echo $p_cat_desc; ?> </td>
+                                <td> <img src="other_images/<?php echo $p_cat_image; ?>" width="60" height="60"> </td>
+                                <td> <?php echo $p_cat_top; ?> </td>
                                 <td>
-                                    <a href="index.php?edit_p_cat= <?php echo $p_cat_id; ?> ">
+                                    <a href="index.php?delete_p_cat=<?php echo $p_cat_id; ?>">
+                                        <i class="fa fa-trash-o"></i> Xoá
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="index.php?edit_p_cat=<?php echo $p_cat_id; ?>">
                                         <i class="fa fa-pencil"></i> Sửa
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="index.php?delete_p_cat= <?php echo $p_cat_id; ?> ">
-                                        <i class="fa fa-trash"></i> Xoá
-                                    </a>
-                                </td>
+
                             </tr>
 
                             <?php } ?>

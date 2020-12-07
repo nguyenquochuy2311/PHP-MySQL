@@ -112,6 +112,50 @@ body{
     margin-bottom: 40px;
 }
 
+/*phan them (advantages)*/
+#advantages{
+    text-align: center;
+}
+.box{
+    background: #ffffff;
+    margin: 0 0 30px;
+    border: solid 1px #e6e6e6;
+    box-sizing: border-box;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, .3);
+}
+#advantages .box .icon{
+    position: absolute;
+    font-size: 120px;
+    width: 100%;
+    text-align: center;
+    top: -20px;
+    left: 0px;
+    height: 100%;
+    float: left;
+    color: #dadada;
+    box-sizing: border-box;
+    z-index: 1;
+}
+#advantages .box h3{
+    position: relative;
+    margin: 0 0 20px;
+    font-weight: 300;
+    text-transform: uppercase;
+    z-index: 2;
+}
+#advantages .box h3 a{
+    color: #4fbfa8;
+}
+#advantages .box h3 a:hover{
+    text-decoration: none;
+}
+#advantages .box p{
+    position: relative;
+    z-index: 2;
+    color: #555555;
+}
+
 /*Hot deal*/
 .box{
     background: #ffffff;
@@ -168,6 +212,7 @@ body{
 #content .product .text h3 a{
     color: rgb(85,85,85);
 }
+
 
 /*Thu tu trang style (breadcrumb)*/
 .breadcrumb{
@@ -298,8 +343,12 @@ body{
 
 /*Footer style*/
 #footer{
-    background: #e0e0e0;;
+    background: #e0e0e0;
     padding: 0;
+    background-color: #333333;
+}
+#footer h4{
+    color: #e0e0e0;
 }
 #footer a{
     color:#999999;
@@ -335,4 +384,80 @@ body{
     color: #dedede;
     background: #777777;
 }
+
+/* Gom nhom*/
+/* .nav.category-menu{
+    margin-top:-15px;
+} */
+
+.scroll-menu{
+    height:260px;
+    overflow-y: scroll;
+}
+
+.checkbox span{
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    padding-left:5px;
+}
+
+.checkbox span::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 0;
+    margin-left: -20px;
+    border-radius:4px;
+    transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
+    background: #ffffff;
+}
+.checkbox span::after{
+    content:"";
+    display:inline-block;
+    position: absolute;
+    width:17px;
+    height:17px;
+    left:0;
+    top:0;
+    margin-left: -20px;
+    padding-left:3px;
+    padding-top:1px;
+    font-size:11px;
+    columns: #555555;
+}
+
+.checkbox input[type='checkbox']{
+    opacity: 0;
+    z-index: 1;
+    cursor:pointer;
+}
+
+.checkbox input[type='checkbox']:focus+span::before{
+    outline:thin dotted;
+    outline:5px auto;
+    outline-offset: -2px;
+}
+
+.checkbox input[type='checkbox']:checked+span::after{
+    font-family:"FontAwesome";
+    content:"\f00c";
+}
+
+.checkbox-primary input[type='checkbox']:checked+span::before{
+    background-color: #337ab7 ;
+    border-color: #337ab7;
+}
+
+.checkbox-primary input[type='checkbox']:checked+span::after{
+    color: #ffffff;
+}
+
+.product a img.img-responsive{
+    max-width: height 253px;
+    width:100%;
+}
+
 

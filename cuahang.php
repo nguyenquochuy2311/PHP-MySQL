@@ -27,124 +27,23 @@ include("includes/header.php");
 
         <div class="col-md-9">
 
-            <?php
-            if (!isset($_GET['p_cat'])) {
-                if (!isset($_GET['cat'])) {
-                    echo "
-                    <h3 style='text-align:center;'>Sản phẩm</h3>
-                    ";
-                }
-            }
-            ?>
+            <div class="box">
+                <h1>Cửa hàng</h1>
+            </div>
 
-            <div class="row">
-
-                <?php
-                if (!isset($_GET['p_cat'])) {
-                    if (!isset($_GET['cat'])) {
-                        $per_page = 6;
-
-                        if (isset($_GET['page'])) {
-                            $page = $_GET['page'];
-                        } else {
-                            $page = 1;
-                        }
-
-                        $start_from = ($page - 1) * $per_page;
-
-                        $get_products = "select * from products order by 1 desc limit $start_from,$per_page";
-
-                        $run_products = mysqli_query($conn, $get_products);
-
-                        while ($row_products = mysqli_fetch_array($run_products)) {
-
-                            $pro_id = $row_products['product_id'];
-                            $pro_title = $row_products['product_title'];
-                            $pro_price = $row_products['product_price'];
-                            $pro_img = $row_products['product_img'];
-
-                            echo "
-                                <div class='col-md-4 col-sm-6 center-responsive'>
-                                    <div class='product'>
-                                        <a href='chitiet.php?pro_id=$pro_id'>
-                                            <img class='img-responsive' src='admin_area/product_images/$pro_img'>
-                                        </a>
-
-                                        <div class='text'>
-                                            <h3>
-                                                <a href='chitiet.php?pro_id=$pro_id'> $pro_title </a>
-                                            </h3>
-
-                                            <p class='price'>
-                                                <strong>$pro_price đ</strong>
-                                            </p>
-
-                                            <p class='button'>
-                                                <a class='btn btn-default' href='chitiet.php?pro_id=$pro_id'>
-                                                    Chi tiết
-                                                </a>
-
-                                                <a class='btn btn-primary' href='chitiet.php?pro_id=$pro_id'>
-                                                    <i class='fa fa-shopping-cart'></i> Giỏ hàng
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                ";
-                        }
-                ?>
+            <div id="products" class="row">
+                <?php getProducts(); ?>
             </div>
 
             <center>
                 <ul class="pagination">
-                    <?php
-
-                        $query = "select * from products";
-
-                        $result = mysqli_query($conn, $query);
-
-                        $total_records = mysqli_num_rows($result);
-
-                        $total_pages = ceil($total_records / $per_page);
-
-                        echo "
-                        <li>
-                            <a href='cuahang.php?page=1'> Trang đầu </a>
-                        </li>
-                    ";
-
-                        for ($i = 1; $i <= $total_pages; $i++) {
-                            echo "
-                        <li>
-                            <a href='cuahang.php?page=$i'> $i </a>
-                        </li>
-                        ";
-                        };
-
-                        echo "
-                        <li>
-                            <a href='cuahang.php?page=$total_pages'> Trang cuối </a>
-                        </li>
-                    ";
-                    }
-                }
-            ?>
+                    <?php getPaginator(); ?>
                 </ul>
             </center>
 
-            <div class="row">
-                <?php
-                getpcatpro();
-                ?>
-            </div>
+        </div>
 
-            <div class="row">
-                <?php
-                getcatpro();
-                ?>
-            </div>
-
+        <div id="wait" class="wait" style="position:absolute;top:40%;left:45%;padding: 200px 100px 100px 100px;">
         </div>
     </div>
 
@@ -153,11 +52,172 @@ include("includes/header.php");
 <?php
 
 include("includes/footer.php");
+
 ?>
 
 
 <script src="js/jquery-331.js"></script>
 <script src="js/boostrap-337.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.nav-toggle').click(function() {
+        $('.panel-collapse,.collapse-data').slideToggle(700, function() {
+
+            if ($(this).css('display') == 'none') {
+                $(".hide-show").html('Mở');
+            } else {
+                $(".hide-show").html('Ẩn');
+            }
+
+        });
+    });
+
+    $(function() {
+        $.fn.extend({
+            filterTable: function() {
+                return this.each(function() {
+
+                    $(this).on('keyup', function() {
+
+                        var $this = $(this),
+                            search = $this.val().toLowerCase(),
+                            target = $this.attr('data-filters'),
+                            handle = $(target),
+                            rows = handle.find('li a');
+
+                        if (search == '') {
+                            rows.show();
+                        } else {
+                            rows.each(function() {
+                                var $this = $(this);
+
+                                $this.text().toLowerCase().indexOf(
+                                        search) === -1 ?
+                                    $this.hide() : $this.show();
+                            });
+                        }
+                    });
+                });
+            }
+        });
+        $('[data-action="filter"][id="dev-table-filter"]').filterTable();
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    function getProducts() {
+
+        var sPath = '';
+        var aInputs = $('li').find('.get_manufacturer');
+        var aKeys = Array();
+        var aValues = Array();
+
+        iKey = 0;
+
+        $.each(aInputs, function(key, oInput) {
+            if (oInput.checked) {
+                aKeys[iKey] = oInput.value;
+            }
+            iKey++;
+        });
+
+        if (aKeys.length > 0) {
+            var sPath = '';
+
+            for (var i = 0; i < aKeys.length; i++) {
+                sPath = sPath + 'man[]=' + aKeys[i] + '&';
+            }
+        }
+
+        var aInputs = Array();
+        var aInputs = $('li').find('.get_p_cat');
+        var aKeys = Array();
+        var aValues = Array();
+
+        iKey = 0;
+
+        $.each(aInputs, function(key, oInput) {
+            if (oInput.checked) {
+                aKeys[iKey] = oInput.value;
+            }
+            iKey++;
+        });
+
+        if (aKeys.length > 0) {
+            var sPath = '';
+
+            for (var i = 0; i < aKeys.length; i++) {
+                sPath = sPath + 'p_cat[]=' + aKeys[i] + '&';
+            }
+        }
+
+        var aInputs = Array();
+        var aInputs = $('li').find('.get_cat');
+        var aKeys = Array();
+        var aValues = Array();
+
+        iKey = 0;
+
+        $.each(aInputs, function(key, oInput) {
+            if (oInput.checked) {
+                aKeys[iKey] = oInput.value;
+            }
+            iKey++;
+        });
+
+        if (aKeys.length > 0) {
+            var sPath = '';
+
+            for (var i = 0; i < aKeys.length; i++) {
+                sPath = sPath + 'cat[]=' + aKeys[i] + '&';
+            }
+        }
+
+        $('wait').html('<img src="images/load.gif"');
+
+        $.ajax({
+            url: "load.php",
+            method: "POST",
+
+            data: sPath + 'saction=getProducts',
+
+            success: function(data) {
+
+                $('#products').html('');
+                $('#products').html(data);
+                $('#wait').empty();
+            }
+        });
+
+        $.ajax({
+            url: "load.php",
+            method: "POST",
+
+            data: sPath + 'saction=getPaginator',
+
+            success: function(data) {
+
+                $('#pagination').html('');
+                $('#pagination').html(data);
+            }
+        });
+    }
+
+    $('.get_manufacturer').click(function() {
+        getProducts();
+    });
+
+    $('.get_p_cat').click(function() {
+        getProducts();
+    });
+    $('.cat').click(function() {
+        getProducts();
+    });
+});
+</script>
 </body>
 
 </html>

@@ -25,7 +25,7 @@ if (!isset($_SESSION['admin_email'])) {
             </div>
 
             <div class="panel-body">
-                <form action="" class="form-horizontal" method="post">
+                <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="" class="control-label col-md-3"> Chủ đề danh mục sản phẩm </label>
 
@@ -35,10 +35,20 @@ if (!isset($_SESSION['admin_email'])) {
                     </div>
 
                     <div class="form-group">
-                        <label for="" class="control-label col-md-3"> Mô tả danh mục sản phẩm </label>
+                        <label class="col-md-3 control-label"> Kiểm tra danh mục sản phẩm </label>
                         <div class="col-md-6">
-                            <textarea type='text' name="p_cat_desc" id="" cols="30" rows="10"
-                                class="form-control"></textarea>
+                            <input type="radio" value="yes" name="p_cat_top">
+                            <label>Yes</label>
+
+                            <input type="radio" value="no" name="p_cat_top">
+                            <label>No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"> Hình ảnh của danh mục sản phẩm </label>
+                        <div class="col-md-6">
+                            <input type="file" name="p_cat_img" class="form-control" required>
                         </div>
                     </div>
 
@@ -59,12 +69,15 @@ if (!isset($_SESSION['admin_email'])) {
     if (isset($_POST['submit'])) {
 
         $p_cat_title = $_POST['p_cat_title'];
+        $p_cat_top = $_POST['p_cat_top'];
+        $p_cat_image = $_FILES['p_cat_img']['name'];
 
-        $p_cat_desc = $_POST['p_cat_desc'];
+        $temp_name = $_FILES['p_cat_img']['tmp_name'];
 
-        $insert_p_cat = "insert into product_categories (p_cat_title,p_cat_desc) values ('$p_cat_title','$p_cat_desc')";
+        $insert_p_cat = "insert into product_categories (p_cat_title,p_cat_top,p_cat_image) values ('$p_cat_title','$p_cat_top','$p_cat_image')";
 
         $run_p_cat = mysqli_query($conn, $insert_p_cat);
+
 
         if ($run_p_cat) {
 

@@ -7,27 +7,7 @@ include("functions/functions.php");
 
 ?>
 
-<?php
-if (isset($_GET['pro_id'])) {
-    $product_id = $_GET['pro_id'];
 
-    $get_product = "select * from products where product_id='$product_id'";
-    $run_product = mysqli_query($conn, $get_product);
-    $row_product = mysqli_fetch_array($run_product);
-
-    $p_cat_id = $row_product['p_cat_id'];
-    $pro_title = $row_product['product_title'];
-    $pro_price = $row_product['product_price'];
-    $pro_desc = $row_product['product_desc'];
-    $pro_img = $row_product['product_img'];
-
-    $get_p_cat = "select * from product_categories where p_cat_id='$p_cat_id'";
-    $run_p_cat = mysqli_query($conn, $get_p_cat);
-    $row_p_cat = mysqli_fetch_array($run_p_cat);
-
-    $p_cat_title = $row_p_cat['p_cat_title'];
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +27,7 @@ if (isset($_GET['pro_id'])) {
     <div id="top">
         <div class="container">
             <div class="col-md-6 offer">
-                <a href="#" class="btn btn-success btn-sm">
+                <a href="checkout.php" class="btn btn-success btn-sm">
 
                     <?php
 
@@ -100,8 +80,7 @@ if (isset($_GET['pro_id'])) {
             <div class="navbar-header">
                 <a href="index.php" class="navbar-brand home">
                     <img style="width:125px;height:49px;" src="images/logo.jpg" alt="Lixibox Logo" class=hidden-xs>
-                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile"
-                        class="visible-xs">
+                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile" class="visible-xs">
                 </a>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
                     <span class="sr-only">Toggle N
@@ -154,8 +133,7 @@ if (isset($_GET['pro_id'])) {
                     <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>
                 <div class="navbar-collapse collapse right">
-                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse"
-                        data-target="#search">
+                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">
                         <span class="sr-only">Toggle Search</span>
                         <i class="fa fa-search"></i>
                     </button>
