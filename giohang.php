@@ -78,7 +78,7 @@ include("includes/header.php");
                                             <?php echo $product_title; ?> </a>
                                     </td>
                                     <td>
-                                        <?php echo $pro_qty; ?>
+                                        <input min=1 type="number" value="<?php echo $pro_qty; ?>">
                                     </td>
                                     <td>
                                         <?php echo $only_price; ?>
@@ -87,7 +87,8 @@ include("includes/header.php");
                                         <?php echo $pro_size; ?>
                                     </td>
                                     <td>
-                                        <input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>">
+                                        <input type="checkbox" name="remove[]" value="<?php echo $pro_id; ?>"
+                                            onchange="callUpdate()">
                                     </td>
                                     <td>
                                         <?php echo $sub_total; ?>
@@ -119,7 +120,8 @@ include("includes/header.php");
                         </div>
 
                         <div class="pull-right">
-                            <button type="submit" name="update" value="Cập nhật giỏ hàng" class="btn btn-default">
+                            <button id="update" type="submit" name="update" value="Cập nhật giỏ hàng"
+                                class="btn btn-default">
                                 <i class="fa fa-refresh"></i>Cập nhật giỏ hàng
                             </button>
 
@@ -242,6 +244,11 @@ include("includes/footer.php");
 
 <script src="js/jquery-331.js"></script>
 <script src="js/boostrap-337.js"></script>
+<script>
+function callUpdate() {
+    document.getElementById("update").click();
+}
+</script>
 </body>
 
 </html>

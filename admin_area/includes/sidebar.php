@@ -77,16 +77,16 @@ if (!isset($_SESSION['admin_email'])) {
 
             <li>
                 <a href="#" data-toggle="collapse" data-target="#manufacturers">
-                    <i class="fa fa-fw fa-star"></i> Nhà sản xuất
+                    <i class="fa fa-fw fa-star"></i> Thương hiệu
                     <i class="fa fa-fw fa-caret-down"></i>
                 </a>
 
                 <ul id="manufacturers" class="collapse">
                     <li>
-                        <a href="index.php?insert_manufacturer"> Thêm nhà sản xuất </a>
+                        <a href="index.php?insert_manufacturer"> Thêm thương hiệu </a>
                     </li>
                     <li>
-                        <a href="index.php?view_manufacturers"> Xem nhà sản xuất </a>
+                        <a href="index.php?view_manufacturers"> Xem thương hiệu </a>
                     </li>
                 </ul>
 

@@ -4,6 +4,12 @@ include("includes/header.php");
 
 ?>
 
+<?php
+
+$search = $_GET['search'];
+
+?>
+
 <!--Bat dau content cua san pham-->
 <div id="content">
     <div class="container">
@@ -14,7 +20,7 @@ include("includes/header.php");
                     <a href="index.php">Trang chủ</a>
                 </li>
                 <li>
-                    Cửa hàng
+                    Tìm kiếm
                 </li>
             </ul>
         </div>
@@ -28,11 +34,19 @@ include("includes/header.php");
         <div class="col-md-9">
 
             <div class="box">
-                <h1>Cửa hàng</h1>
+                <?php
+
+                echo "<h2>Kết quả tìm kiếm</h2> <h1># $search</h1>";
+
+                ?>
             </div>
 
             <div id="products" class="row">
-                <?php getProducts(); ?>
+                <?php
+
+                getProSearch($search);
+
+                ?>
             </div>
 
             <center>
@@ -43,8 +57,7 @@ include("includes/header.php");
 
         </div>
 
-        <div src="images/load.gif" id="wait" class="wait"
-            style="position:absolute;top:40%;left:45%;padding: 200px 100px 100px 100px;">
+        <div id="wait" class="wait" style="position:absolute;top:40%;left:45%;padding: 200px 100px 100px 100px;">
         </div>
     </div>
 
@@ -208,14 +221,14 @@ $(document).ready(function() {
     }
 
     $('.get_manufacturer').click(function() {
-        getProducts();
+        getProducts($search);
     });
 
     $('.get_p_cat').click(function() {
-        getProducts();
+        getProducts($search);
     });
     $('.get_cat').click(function() {
-        getProducts();
+        getProducts($search);
     });
 });
 </script>

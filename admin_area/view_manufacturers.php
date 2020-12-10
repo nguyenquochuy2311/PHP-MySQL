@@ -35,7 +35,7 @@ if (!isset($_SESSION['admin_email'])) {
                         <thead>
                             <tr>
                                 <th> STT </th>
-                                <th> Tên nhà sản xuất </th>
+                                <th> Tên thương hiệu </th>
                                 <th> Hình ảnh </th>
                                 <th> Kiểm tra </th>
                             </tr>

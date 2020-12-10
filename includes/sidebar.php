@@ -4,7 +4,6 @@ $aMan = array();
 $aCat = array();
 $aPcat = array();
 
-
 if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
 
     foreach ($_REQUEST['man'] as $sKey => $sVal) {
@@ -49,7 +48,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
             Nhà sản xuất
 
             <div class="pull-right">
-                <a href="JavaScript:Void(0);" style="color:black">
+                <a href="JavaScript:Void(0);" style="color:black;">
                     <span class="nav-toggle hide-show">Ẩn</span>
                 </a>
             </div>
@@ -60,7 +59,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
         <div class="panel-body">
             <div class="input-group">
                 <input type="text" class="form-control" id="dev-table-filter" data-filters="#dev-manufacturer"
-                    data-action="filter" placeholder="Nhập nhà sản xuất">
+                    data-action="filter" placeholder="Nhập thương hiệu">
                 <a class="input-group-addon">
                     <i class="fa fa-search"></i>
                 </a>
@@ -72,6 +71,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                 <?php
 
                 $get_manufacturer = "select * from manufacturers where manufacturer_top='yes'";
+
                 $run_manufacturer = mysqli_query($conn, $get_manufacturer);
 
                 while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
@@ -85,7 +85,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     }
 
                     echo "
-                    <li style='background:#dddddd' class='checkbox checkbox-primary'>
+                    <li style='background:#dddddd;' class='checkbox checkbox-primary'>
 
                         <a>
 
@@ -113,6 +113,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                 }
 
                 $get_manufacturer = "select * from manufacturers where manufacturer_top='no'";
+
                 $run_manufacturer = mysqli_query($conn, $get_manufacturer);
 
                 while ($row_manufacturer = mysqli_fetch_array($run_manufacturer)) {
@@ -122,7 +123,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     $manufacturer_image = $row_manufacturer['manufacturer_image'];
 
                     if ($manufacturer_image != "") {
-                        $manufacturer_image = "<img src='admin_area/other_images/$manufacturer_image' width='20px'>&nbsp;";
+                        $manufacturer_image = "<img src='admin_area/other_images/$manufacturer_image' width='30px'>&nbsp;";
                     }
 
                     echo "
@@ -167,7 +168,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
             Nhóm theo giới tính
 
             <div class="pull-right">
-                <a href="JavaScript:Void(0);" style="color:black">
+                <a href="JavaScript:Void(0);" style="color:black;">
                     <span class="nav-toggle hide-show">Ẩn</span>
                 </a>
             </div>
@@ -175,6 +176,16 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
     </div>
 
     <div class="panel-collapse collapse-data">
+        <div class="panel-body">
+            <div class="input-group">
+                <input type="text" class="form-control" id="dev-table-filter" data-filters="#dev-cat"
+                    data-action="filter" placeholder="Nhập danh mục giới tính">
+                <a class="input-group-addon">
+                    <i class="fa fa-search"></i>
+                </a>
+            </div>
+        </div>
+
         <div class="panel-body scroll-menu">
             <ul class="nav nav-pills nav-stacked category-menu" id="dev-cat">
                 <?php
@@ -193,7 +204,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     }
 
                     echo "
-                    <li style='background:#dddddd' class='checkbox checkbox-primary'>
+                    <li style='background:#dddddd;' class='checkbox checkbox-primary'>
 
                         <a>
 
@@ -229,10 +240,9 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     $cat_title = $row_cat['cat_title'];
                     $cat_image = $row_cat['cat_image'];
 
-                    if ($cat_image == "") {
-                    } else {
+                    if ($cat_image != "") {
 
-                        $cat_image = "<img src='admin_area/other_images/$cat_image' width='20px'>&nbsp;";
+                        $cat_image = "<img src='admin_area/other_images/$cat_image' width='30px'>&nbsp;";
                     }
 
                     echo "
@@ -276,7 +286,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
             Nhóm theo danh mục sản phẩm
 
             <div class="pull-right">
-                <a href="JavaScript:Void(0);" style="color:black">
+                <a href="JavaScript:Void(0);" style="color:black;">
                     <span class="nav-toggle hide-show">Ẩn</span>
                 </a>
             </div>
@@ -298,7 +308,9 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
             <ul class="nav nav-pills nav-stacked category-menu" id="dev-p-cat">
                 <?php
 
+
                 $get_p_cat = "select * from product_categories where p_cat_top='yes'";
+
                 $run_p_cat = mysqli_query($conn, $get_p_cat);
 
                 while ($row_p_cat = mysqli_fetch_array($run_p_cat)) {
@@ -312,7 +324,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     }
 
                     echo "
-                    <li style='background:#dddddd' class='checkbox checkbox-primary'>
+                    <li style='background:#dddddd;' class='checkbox checkbox-primary'>
 
                         <a>
 
@@ -338,9 +350,9 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     </li>
                     ";
                 }
-
                 $get_p_cat = "select * from product_categories where p_cat_top='no'";
-                $run_p_cat = mysqli_query($con, $get_p_cat);
+
+                $run_p_cat = mysqli_query($conn, $get_p_cat);
 
                 while ($row_p_cat = mysqli_fetch_array($run_p_cat)) {
 
@@ -351,7 +363,7 @@ if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
                     if ($p_cat_image == "") {
                     } else {
 
-                        $p_cat_image = "<img src='admin_area/other_images/$p_cat_image' width='20px'>&nbsp;";
+                        $p_cat_image = "<img src='admin_area/other_images/$p_cat_image' width='30px'>&nbsp;";
                     }
 
                     echo "

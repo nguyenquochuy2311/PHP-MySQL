@@ -80,12 +80,11 @@ include("functions/functions.php");
             <div class="navbar-header">
                 <a href="index.php" class="navbar-brand home">
                     <img style="width:125px;height:49px;" src="images/logo.jpg" alt="Lixibox Logo" class=hidden-xs>
-                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile" class="visible-xs">
+                    <img style="width:83px;height:33px;" src="images/logo.jpg" alt="Lixibox Logo Mobile"
+                        class="visible-xs">
                 </a>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
-                    <span class="sr-only">Toggle N
-
-                        avigation</span>
+                    <span class="sr-only">Toggle Navigation</span>
                     <i class="fa fa-align-justify"></i>
                 </button>
                 <button class="navbar-toggle" data-toggle="collapse" data-target="#search">
@@ -133,17 +132,24 @@ include("functions/functions.php");
                     <span><?php items(); ?> sản phẩm trong giỏ hàng</span>
                 </a>
                 <div class="navbar-collapse collapse right">
-                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">
+                    <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse"
+                        data-target="#search">
                         <span class="sr-only">Toggle Search</span>
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+
+                <?php
+                error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+                $searchS = $_POST['search'];
+                ?>
+
                 <div class="collapse clearfix" id="search">
-                    <form method="get" action="#" class="navbar-form">
+                    <form method="get" action="search.php?search=<?php echo $searchS; ?>" class="navbar-form">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="user-query" required>
+                            <input type="text" class="form-control" placeholder="Nhập tìm kiếm" name="search" required>
                             <span class="input-group-btn">
-                                <button type="submit" name="search" value="Search" class="btn btn-primary">
+                                <button type="submit" name="ok" class="btn btn-primary">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
@@ -154,3 +160,11 @@ include("functions/functions.php");
         </div>
     </div>
     <!--Ket thuc Header-->
+
+    <?php
+
+    if (isset($_REQUEST['ok'])) {
+        $search = addslashes($_GET['search']);
+    }
+
+    ?>

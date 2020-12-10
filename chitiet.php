@@ -257,13 +257,7 @@ if (isset($_GET['pro_id'])) {
                                     <label for="" class="col-md-5 control-label">Số lượng</label>
 
                                     <div class="col-md-7">
-                                        <select name="product_qty" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
+                                        <input type="number" value=1 min=1 name="product_qty" style="width:50px;">
                                     </div>
                                 </div>
 
