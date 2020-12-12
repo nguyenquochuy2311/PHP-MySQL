@@ -161,7 +161,7 @@ if (!isset($_SESSION['admin_email'])) {
                             <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
 
                             <div class="col-md-6">
-                                <input type="file" name="product_img" class="form-control" required>
+                                <input type="file" name="product_img" class="f  orm-control" required>
                                 <img style="width:100px;height:100px;" src="product_images/<?php echo $pro_img; ?>"
                                     alt="<?php echo $pro_title; ?>">
 
