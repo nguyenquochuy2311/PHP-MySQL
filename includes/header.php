@@ -26,7 +26,7 @@ include("functions/functions.php");
     <div id="top">
         <div class="container">
             <div class="col-md-6 offer">
-                <a href="checkout.php" class="btn btn-success btn-sm">
+                <a href="#" class="btn btn-success btn-sm">
 
                     <?php
 
@@ -39,7 +39,7 @@ include("functions/functions.php");
                     ?>
 
                 </a>
-                <a href="checkout.php"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền:
+                <a href="giohang.php"><?php items(); ?> sản phẩm trong giỏ hàng | Tổng tiền:
                     <?php total_price(); ?></a>
             </div>
             <div class="col-md-6">

@@ -390,3 +390,86 @@ function getPaginator()
     }
     echo "'>" . 'Trang cuối' . "</a></li>";
 }
+
+function getProducts_Cat($p_cat_id)
+{
+    global $database;
+    $aWhere = array();
+
+    if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
+
+        foreach ($_REQUEST['man'] as $sKey => $sVal) {
+
+            if ((int)$sVal != 0) {
+                $aWhere[] = 'manufacturer_id=' . (int)$sVal;
+            }
+        }
+    }
+
+    if (isset($_REQUEST['cat']) && is_array($_REQUEST['cat'])) {
+
+        foreach ($_REQUEST['cat'] as $sKey => $sVal) {
+
+            if ((int)$sVal != 0) {
+                $aWhere[] = 'cat_id=' . (int)$sVal;
+            }
+        }
+    }
+
+    if (isset($_REQUEST['p_cat']) && is_array($_REQUEST['p_cat'])) {
+
+        foreach ($_REQUEST['p_cat'] as $sKey => $sVal) {
+
+            if ((int)$sVal != 0) {
+                $aWhere[] = 'p_cat_id=' . (int)$sVal;
+            }
+        }
+    }
+
+    $per_page = 6;
+
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    } else {
+        $page = 1;
+    }
+
+    $start_from = ($page - 1) * $per_page;
+    $sLimit = " order by 1 DESC LIMIT $start_from,$per_page";
+    $sWhere = (count($aWhere) > 0 ? ' WHERE p_cat_id =' . $p_cat_id . ' ' . implode(' or ', $aWhere) : '') . $sLimit;
+
+    $get_products = "select * from products " . $sWhere;
+    $run_products = mysqli_query($database, $get_products);
+
+    while ($row_products = mysqli_fetch_array($run_products)) {
+
+        $pro_id = $row_products['product_id'];
+        $pro_title = $row_products['product_title'];
+        $pro_price = $row_products['product_price'];
+        $pro_image = $row_products['product_img'];
+
+        echo "
+        
+        <div class='col-md-4 col-sm-6 center-responsive'>
+            <div class='product'>
+                <a href='chitiet.php?pro_id=$pro_id'>
+                    <img class='img-responsive' src='admin_area/product_images/$pro_image'>  
+                </a>
+
+                <div class='text'>
+                    <h3> $pro_title </h3>
+
+                    <p class='price'> $pro_price <u>đ</u></p>
+                    <p class='buttons'>
+                        <a class='btn btn-default' href='chitiet.php?pro_id=$pro_id'>Chi tiết</a>
+                        <a class='btn btn-primary' href='chitiet.php?pro_id=$pro_id'>
+                            <i class='fa fa-shopping-cart'></i> Thêm giỏ hàng
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        ";
+    }
+}
