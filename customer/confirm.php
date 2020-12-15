@@ -153,7 +153,7 @@ if (!isset($_SESSION['customer_email'])) {
                 <ul class="breadcrumb">
                     <!--Thu tu trang-->
                     <li>
-                        <a href="index.php">Trang chủ</a>
+                        <a href="../index.php">Trang chủ</a>
                     </li>
                     <li>
                         Tài khoản của tôi

@@ -22,7 +22,7 @@
                         echo "
                         
                         <li>
-                            <a href='cuahang.php?p_cat=$p_cat_id'>
+                            <a href='../cuahang.php?p_cat=$p_cat_id'>
                                 $p_cat_title
                             </a>
                         </li>    

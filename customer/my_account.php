@@ -49,7 +49,7 @@ if (!isset($_SESSION['customer_email'])) {
             <div class="col-md-6">
                 <ul class="menu">
                     <li>
-                        <a href="../khach_dangky.php">Đăng ký</a>
+                        <a href="#">Đăng ký</a>
                     </li>
                     <li>
                         <a href="my_account.php">Tài khoản của tôi</a>
@@ -65,7 +65,7 @@ if (!isset($_SESSION['customer_email'])) {
                                 if (!isset($_SESSION['customer_email'])) {
                                     echo "<a href='checkout.php'> Đăng nhập </a>";
                                 } else {
-                                    echo "<a href='logout.php'> Đăng xuất </a>";
+                                    echo "<a href='../logout.php'> Đăng xuất </a>";
                                 }
 
                                 ?>
@@ -193,6 +193,11 @@ if (!isset($_SESSION['customer_email'])) {
                     <?php
                         if (isset($_GET['delete_account'])) {
                             include("delete_account.php");
+                        }
+                        ?>
+                    <?php
+                        if (isset($_GET['logout'])) {
+                            include("logout.php");
                         }
                         ?>
 

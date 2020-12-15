@@ -18,7 +18,6 @@ include("functions/functions.php");
     <link rel="stylesheet" href="styles/bootstrap-337.css">
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
-    <script src="js/myjquery.js"></script>
     <title>My Website</title>
 </head>
 

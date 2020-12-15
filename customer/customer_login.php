@@ -62,7 +62,7 @@ if (isset($_POST['login'])) {
     } else {
         $_SESSION['customer_email'] = $customer_email;
         echo "<script>alert('Đăng nhập thành công')</script>";
-        echo "<script>window.open('checkout.php','_self')</script>";
+        echo "<script>window.open('customer/my_account.php?my_orders','_self')</script>";
     }
 }
 

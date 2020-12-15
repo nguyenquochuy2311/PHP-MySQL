@@ -66,7 +66,7 @@ include("includes/header.php");
 
             <?php
 
-            $get_boxes = "select * from boxes_section";
+            $get_boxes = "select * from boxes_section order by box_id desc limit 0,3";
             $run_boxes = mysqli_query($conn, $get_boxes);
 
             while ($run_boxes_section = mysqli_fetch_array($run_boxes)) {

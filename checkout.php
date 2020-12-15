@@ -34,7 +34,7 @@ include("includes/header.php");
             if (!isset($_SESSION['customer_email'])) {
                 include("customer/customer_login.php");
             } else {
-                include("payment_options.php");
+                include("customer/my_account.php?my_orders");
             }
 
             ?>
