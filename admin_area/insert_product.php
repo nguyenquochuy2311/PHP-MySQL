@@ -114,14 +114,7 @@ if (!isset($_SESSION['admin_email'])) {
                                         ?>
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>
-                            <div class="col-md-6">
-                                <input type="file" name="product_img" class="form-control" required>
-                            </div>
-                        </div>
+                        </div> 
 
                         <div class="form-group">
                             <label class="col-md-3 control-label"> Giá sản phẩm </label>
@@ -143,6 +136,17 @@ if (!isset($_SESSION['admin_email'])) {
                                 <textarea name="product_desc" class="form-control" cols="19" rows="6"></textarea>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 control-label"> Hình ảnh của sản phẩm </label>                               
+                            <div class="col-md-6">
+                                <form method="POST" action="/" enctype="multipart/form-data">
+                                    <input type="file" name="product_img" id="file_upload" accept="image/*" onchange="previewImage();"  class="form-control" required>
+                                    <img id="preview" style="width:500px;height:500px;">
+                                </form>
+                            </div>
+                            
+                        </div>                     
 
                         <div class="form-group">
                             <label class="col-md-3 control-label"></label>

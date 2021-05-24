@@ -46,8 +46,16 @@ if (!isset($_SESSION['admin_email'])) {
                     <div class="form-group">
                         <label for="" class="control-label col-md-3"> Hình ảnh Slide </label>
                         <div class="col-md-6">
-                            <input type="file" name="slide_image" class="form-control">
+
+                            <form method="POST" action="/" enctype="multipart/form-data">
+                                    <input type="file" name="slide_image" id="file_upload" accept="image/*" onchange="previewImage();" class="form-control" required>
+    
+                                    <img id="preview" style="width:500px;height:500px;">
+                            </form>
+
                         </div>
+                       
+
                     </div>
 
                     <div class="form-group">
