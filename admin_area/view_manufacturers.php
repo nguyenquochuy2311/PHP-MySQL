@@ -8,23 +8,6 @@ if (!isset($_SESSION['admin_email'])) {
 ?>
 
 
-<?php
-
-$aMan = array();
-
-if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
-
-    foreach ($_REQUEST['man'] as $sKey => $sVal) {
-
-        if ((int)$sVal != 0) {
-
-            $aMan[(int)$sVal] = (int)$sVal;
-        }
-    }
-}
-
-?>
-
 <div class="row">
     <div class="col-lg-12">
         <ol class="breadcrumb">
@@ -46,17 +29,6 @@ if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
 
             </div>
 
-
-            <div class="panel-body">
-                <div class="input-group">
-                    <input size="50px" style="display:block;margin:auto;" class="form-control" id="dev-table-filter" data-filters="#dev-manufacturer"
-                        data-action="filter" placeholder="Nhập thương hiệu">
-                    <a class="input-group-addon">
-                        <i class="fa fa-search"></i>
-                    </a>
-                </div>
-            </div>
-
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
@@ -73,9 +45,44 @@ if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
 
                             <?php
 
-                                getManu();
+                                $i = 0;
 
-                            ?>
+                                $get_manu = "select * from manufacturers";
+
+                                $run_manu = mysqli_query($conn, $get_manu);
+
+                                while ($row_manu = mysqli_fetch_array($run_manu)) {
+
+                                    $manu_id = $row_manu['manufacturer_id'];
+
+                                    $manu_title = $row_manu['manufacturer_title'];
+
+                                    $manu_img = $row_manu['manufacturer_image'];
+
+                                    $manu_top = $row_manu['manufacturer_top'];
+
+                                    $i++;
+
+                                ?>
+
+                            <tr>
+                                <td> <?php echo $i; ?> </td>
+                                <td> <?php echo $manu_title; ?> </td>
+                                <td> <img src="other_images/<?php echo $manu_img; ?>" width="60" height="60"></td>
+                                <td> <?php echo $manu_top; ?> </td>
+                                <td>
+                                    <a href="index.php?delete_manufacturer=<?php echo $manu_id; ?>">
+                                        <i class="fa fa-trash-o"></i> Xoá
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="index.php?edit_manufacturer=<?php echo $manu_id; ?>">
+                                        <i class="fa fa-pencil"></i> Sửa
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <?php } ?>
 
                         </tbody>
                     </table>
@@ -83,73 +90,6 @@ if (isset($_REQUEST['man']) && is_array($_REQUEST['man'])) {
             </div>
         </div>
     </div>
-    <center>
-        <ul class="pagination">
-            <?php getPaginator(); ?>
-        </ul>
-    </center>
 </div>
 
 <?php } ?>
-
-<script>
-    $(document).ready(function() {
-        function getManu() {
-
-            var sPath = '';
-            var aInputs = $('li').find('.get_manufacturer');
-            var aKeys = Array();
-            var aValues = Array();
-
-            iKey = 0;
-
-            $.each(aInputs, function(key, oInput) {
-                if (oInput.checked) {
-                    aKeys[iKey] = oInput.value;
-                }
-                iKey++;
-            });
-
-            if (aKeys.length > 0) {
-                var sPath = '';
-
-                for (var i = 0; i < aKeys.length; i++) {
-                    sPath = sPath + 'man[]=' + aKeys[i] + '&';
-                }
-            }
-
-            $('#wait').html('<img src="images/load.gif"');
-
-            $.ajax({
-                url: "load.php",
-                method: "POST",
-
-                data: sPath + 'saction=getProducts',
-
-                success: function(data) {
-
-                    $('#products').html('');
-                    $('#products').html(data);
-                    $('#wait').empty();
-                }
-            });
-
-            $.ajax({
-                url: "../load.php",
-                method: "POST",
-
-                data: sPath + 'saction=getPaginator',
-
-                success: function(data) {
-
-                    $('.pagination').html('');
-                    $('.pagination').html(data);
-                }
-            });
-        }
-
-        $('.get_manufacturer').click(function() {
-            getManu();
-        });
-    });
-</script>

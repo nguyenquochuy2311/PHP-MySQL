@@ -47,18 +47,9 @@ if (!isset($_SESSION['admin_email'])) {
 
                     <div class="form-group">
                         <label class="col-md-3 control-label"> Hình ảnh của danh mục sản phẩm </label>
-
                         <div class="col-md-6">
-
-                            <form method="POST" action="/" enctype="multipart/form-data">
-                                    <input type="file" name="p_cat_img" id="file_upload" accept="image/*" onchange="previewImage();" class="form-control" required>
-    
-                                    <img id="preview">
-                            </form>
-
+                            <input type="file" name="p_cat_img" class="form-control" required>
                         </div>
-                        
-                        
                     </div>
 
                     <div class="form-group">

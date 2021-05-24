@@ -6,8 +6,6 @@ if (!isset($_SESSION['admin_email'])) {
 
 ?>
 
-
-
 <div class="row">
     <div class="col-lg-12">
         <ol class="breadcrumb">
@@ -49,13 +47,9 @@ if (!isset($_SESSION['admin_email'])) {
                     <div class="form-group">
                         <label class="col-md-3 control-label"> Hình ảnh của nhà sản xuất </label>
                         <div class="col-md-6">
-                            <form method="POST" action="/" enctype="multipart/form-data">
-                                 <input type="file" name="manu_img" id="file_upload" accept="image/*" onchange="previewImage();" class="form-control" required>
-                                 <img id="preview" style="width:500px;height:500px;">
-                            </form>
+                            <input type="file" name="manu_img" class="form-control" required>
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
