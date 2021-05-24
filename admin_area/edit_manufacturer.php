@@ -82,7 +82,7 @@ if (!isset($_SESSION['admin_email'])) {
 
                             <br />
 
-                            <img src="other_images/<?php echo $manufacturer_image; ?>" class="img-responsive">
+                            <img src="{other_images/<?php echo $manufacturer_image; ?>}" class="img-responsive">
                         </div>
                     </div>
 
